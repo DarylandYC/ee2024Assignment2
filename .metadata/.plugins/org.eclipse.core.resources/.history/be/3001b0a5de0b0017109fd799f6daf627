@@ -318,10 +318,8 @@ const char displayValues[] = "0123456789ABCDEF";
 
 void runLED(int *cycle){
 	led7seg_setChar(displayValues[*cycle], FALSE);
-	if(*cycle == 15)
-		(*cycle) = 0;
-	else
-		(*cycle)++;
+	(*cycle)++;
+	(*cycle) %= 16;
 }
 
 void SysTick_Handler(void)  {

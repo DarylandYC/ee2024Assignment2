@@ -314,14 +314,17 @@ static void init_GPIO(void)
 }
 
 volatile uint32_t msTicks; // counter for 1ms SysTicks
-const char displayValues[] = "0123456789ABCDEF";
 
 void runLED(int *cycle){
-	led7seg_setChar(displayValues[*cycle], FALSE);
-	if(*cycle == 15)
-		(*cycle) = 0;
-	else
-		(*cycle)++;
+	char displayValues[] = "0123456789ABCDEF";
+
+	if(msTicks%1000 == 0){
+		led7seg_setChar(displayValues[*cycle], FALSE);
+		if(*cycle == 15)
+			*cycle = 0;
+		else
+			(*cycle)++;
+	}
 }
 
 void SysTick_Handler(void)  {
@@ -427,8 +430,7 @@ int main (void) {
 
 
         //7 segment
-    	if(msTicks % 1000 == 0)
-    		runLED(&cycle);
+        runLED(&cycle);
 
         /* ############ Trimpot and RGB LED  ########### */
         /* # */
