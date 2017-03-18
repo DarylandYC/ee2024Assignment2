@@ -17,8 +17,28 @@
 #include "acc.h"
 #include "oled.h"
 #include "rgb.h"
+#include "led7seg.h"
 
 static uint8_t barPos = 2;
+
+void setRGB(uint8_t ledMask) {
+	if ((ledMask & RGB_RED)!=0) {
+		GPIO_SetValue(2, (1 << 0));
+		GPIO_ClearValue(2, (1 << 1));
+	} else {
+		GPIO_ClearValue(2, (1 << 0));
+	}
+	if (ledMask == RGB_BLUE) {
+		GPIO_SetValue(0, (1 << 26));
+	} else {
+		GPIO_ClearValue(0, (1 << 26));
+	}
+	if (ledMask == RGB_GREEN) {
+		GPIO_SetValue(2, (1 << 1));
+	} else {
+		GPIO_ClearValue(2, (1 << 1));
+	}
+}
 
 static void moveBar(uint8_t steps, uint8_t dir)
 {
@@ -36,7 +56,6 @@ static void moveBar(uint8_t steps, uint8_t dir)
 
     pca9532_setLeds(ledOn, 0xffff);
 }
-
 
 static void drawOled(uint8_t joyState)
 {
@@ -79,12 +98,8 @@ static void drawOled(uint8_t joyState)
     }
 }
 
-
 #define NOTE_PIN_HIGH() GPIO_SetValue(0, 1<<26);
 #define NOTE_PIN_LOW()  GPIO_ClearValue(0, 1<<26);
-
-
-
 
 static uint32_t notes[] = {
         2272, // A - 440 Hz
@@ -169,6 +184,9 @@ static void playSong(uint8_t *song) {
     uint32_t note = 0;
     uint32_t dur  = 0;
     uint32_t pause = 0;
+
+    //7 segment
+    led7seg_setChar('1', FALSE);
 
     /*
      * A song is a collection of tones where each tone is
@@ -257,23 +275,63 @@ static void init_i2c(void)
 
 static void init_GPIO(void)
 {
-	// Initialize button
+	// Initialize button SW4 (not really necessary since default configuration)
+	PINSEL_CFG_Type PinCfg;
+	PinCfg.Funcnum = 0;
+	PinCfg.OpenDrain = 0;
+	PinCfg.Pinmode = 0;
+	PinCfg.Portnum = 1;
+	PinCfg.Pinnum = 31;
+	PINSEL_ConfigPin(&PinCfg);
+	GPIO_SetDir(1, 1<<31, 0);
 
+	//Initialize button sw3
+	PinCfg.Funcnum = 0;
+	PinCfg.OpenDrain = 0;
+	PinCfg.Pinmode = 0;
+	PinCfg.Portnum = 2;
+	PinCfg.Pinnum = 10;
+	PINSEL_ConfigPin(&PinCfg);
+	GPIO_SetDir(2, 1 << 10, 0);
 
+    /* ---- Speaker ------> */
 
+    GPIO_SetDir(2, 1<<0, 1);
+    GPIO_SetDir(2, 1<<1, 1);
 
+    GPIO_SetDir(0, 1<<27, 1);
+    GPIO_SetDir(0, 1<<28, 1);
+    GPIO_SetDir(2, 1<<13, 1);
 
+    // Main tone signal : P0.26
+    GPIO_SetDir(0, 1<<26, 1);
 
+    GPIO_ClearValue(0, 1<<27); //LM4811-clk
+    GPIO_ClearValue(0, 1<<28); //LM4811-up/dn
+    GPIO_ClearValue(2, 1<<13); //LM4811-shutdn
 
-
-
-
-
+    /* <---- Speaker ------ */
 }
 
+volatile uint32_t msTicks; // counter for 1ms SysTicks
+
+void runLED(int *cycle){
+	char displayValues[] = "0123456789ABCDEF";
+
+	if(msTicks%1000 == 0){
+		led7seg_setChar(displayValues[*cycle], FALSE);
+		if(*cycle == 15)
+			*cycle = 1;
+		else
+			(*cycle)++;
+	}
+}
+
+void SysTick_Handler(void)  {
+  msTicks++;
+}
 
 int main (void) {
-
 
     int32_t xoff = 0;
     int32_t yoff = 0;
@@ -286,9 +344,10 @@ int main (void) {
     uint8_t dir = 1;
     uint8_t wait = 0;
 
-    uint8_t state    = 0;
+    uint8_t state = 0;
 
     uint8_t btn1 = 1;
+    int* cycle = 0;
 
 
     init_i2c();
@@ -299,8 +358,10 @@ int main (void) {
     joystick_init();
     acc_init();
     oled_init();
+    rgb_init();
 
-
+    // 7 Seg
+    led7seg_init();
 
     /*
      * Assume base board in zero-g position when reading first value.
@@ -310,24 +371,15 @@ int main (void) {
     yoff = 0-y;
     zoff = 64-z;
 
-    /* ---- Speaker ------> */
+	// Setup SysTick Timer to interrupt at 1 msec intervals
+	if (SysTick_Config(SystemCoreClock / 1000)) {
+	    while (1);  // Capture error
+	}
 
-    GPIO_SetDir(2, 1<<0, 1);
-    GPIO_SetDir(2, 1<<1, 1);
-
-    GPIO_SetDir(0, 1<<27, 1);
-    GPIO_SetDir(0, 1<<28, 1);
-    GPIO_SetDir(2, 1<<13, 1);
-    GPIO_SetDir(0, 1<<26, 1);
-
-    GPIO_ClearValue(0, 1<<27); //LM4811-clk
-    GPIO_ClearValue(0, 1<<28); //LM4811-up/dn
-    GPIO_ClearValue(2, 1<<13); //LM4811-shutdn
-
-    /* <---- Speaker ------ */
-
-    moveBar(1, dir);
+    //moveBar(1, dir);
     oled_clearScreen(OLED_COLOR_BLACK);
+
+    int led = 0;
 
     while (1)
     {
@@ -349,14 +401,19 @@ int main (void) {
         }
 
         if (y > 1 && wait++ > (40 / (1 + (y/10)))) {
-            moveBar(1, dir);
+            //moveBar(1, dir);
             wait = 0;
         }
 
-
-        /* # */
-        /* ############################################# */
-
+        //OLED Controlling
+        if(led == 0){
+        	pca9532_setLeds(1, 0);
+        	led = 1;
+        } else {
+			pca9532_setLeds(led << 1, led);
+			led = led << 1;
+        }
+        if(led == 0x10000) led = 0;
 
         /* ####### Joystick and OLED  ###### */
         /* # */
@@ -369,18 +426,24 @@ int main (void) {
         /* ############################################# */
 
 
+        //7 segment
+        runLED(&cycle);
 
         /* ############ Trimpot and RGB LED  ########### */
         /* # */
 
+        setRGB(RGB_RED);
+
+        // Code that plays the song when SW4 is pressed
+        //btn1 = (GPIO_ReadValue(1) >> 31) & 0x01;
+
+        // Code that plays the song when SW3 is pressed
+        btn1 = (GPIO_ReadValue(2) >> 10) & 0x01;
 
         if (btn1 == 0)
         {
             playSong(song);
         }
-
-
-        Timer0_Wait(1);
     }
 
 
