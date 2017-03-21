@@ -359,7 +359,7 @@ static const uint32_t getTicks(void) {
 }
 
 /**
- * Method to display 7 Seg
+ * Function to display 7 Seg
  */
 const char displayValues[] = "0123456789ABCDEF";
 void run7Seg(int *segCount, uint32_t *prevGetTicks){
@@ -370,6 +370,36 @@ void run7Seg(int *segCount, uint32_t *prevGetTicks){
 			*segCount = 0;
 		else
 			(*segCount)++;
+    }
+}
+
+/**
+ * Function run one RGB
+ */
+void runBlinkOneRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour){
+    if(getTicks() - *prevGetFlicker >= 333){
+    	*prevGetFlicker = getTicks();
+    	*flag = !(*flag);
+    	if(*flag == 1)
+    		rgb_setLeds(colour);
+    	else
+    		rgb_setLeds(0);
+    }
+}
+
+/**
+ * Function run two RGB
+ */
+void runBlinkTwoRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour1, uint8_t colour2){
+    if(getTicks() - *prevGetFlicker >= 333){
+    	*prevGetFlicker = getTicks();
+    	*flag = !(*flag);
+    	if(*flag == 1){
+    		rgb_setLeds(RGB_RED);
+    		rgb_setLeds(RGB_BLUE);
+    	} else {
+    		rgb_setLeds(0);
+    	}
     }
 }
 
@@ -395,6 +425,7 @@ int main (void) {
     uint8_t state = 0;
 
     uint8_t btn1 = 1;
+    uint8_t RGB_RED_AND_BLUE = 0x03;
 
 
     init_i2c();
@@ -415,6 +446,8 @@ int main (void) {
     // 7 Seg
     led7seg_init();
     uint32_t prevGetTicks = getTicks();
+    uint32_t prevGetFlicker = getTicks();
+    int flag = 0;
 
     // Setup SysTick Timer to interrupt at 1 msec intervals
 	if (SysTick_Config(SystemCoreClock / 1000)) {
@@ -486,12 +519,17 @@ int main (void) {
             drawOled(state);
         */
 
-        //7 Segment Display
+        // 7 Segment Display
         run7Seg(&segCount,&prevGetTicks);
 
-        // Set RBG display
-        rgb_setLeds(RGB_RED);
+        // Blink Red
+        //runBlinkOneRGB(&flag,&prevGetFlicker,RGB_RED);
 
+        // Blink Blue
+        //runBlinkOneRGB(&flag,&prevGetFlicker,RGB_BLUE);
+
+        // Blink Both
+        runBlinkTwoRGB(&flag, &prevGetFlicker, RGB_RED, RGB_BLUE);
 
         /* ############ Trimpot and RGB LED  ########### */
         /* # */
