@@ -486,11 +486,10 @@ int main (void) {
             drawOled(state);
         */
 
-        //7 Segment Display
+        //7 segment (need to slow down cause incrementing every 1ms)
+        //use const TickInOneSecond to slow down to every 1s
+        // via if statements
         run7Seg(&segCount,&prevGetTicks);
-
-        // Set RBG display
-        rgb_setLeds(RGB_RED);
 
 
         /* ############ Trimpot and RGB LED  ########### */

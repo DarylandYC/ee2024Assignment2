@@ -489,9 +489,6 @@ int main (void) {
         //7 Segment Display
         run7Seg(&segCount,&prevGetTicks);
 
-        // Set RBG display
-        rgb_setLeds(RGB_RED);
-
 
         /* ############ Trimpot and RGB LED  ########### */
         /* # */
