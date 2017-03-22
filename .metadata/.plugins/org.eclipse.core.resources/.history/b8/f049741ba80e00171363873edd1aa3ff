@@ -421,9 +421,7 @@ int main (void) {
     acc_init();
     oled_init();
     rgb_init();
-
     light_enable();
-
 
     //temp sensor
     //temperature sensor init
