@@ -374,9 +374,9 @@ void run7Seg(int *segCount, uint32_t *prevGetTicks){
 }
 
 /**
- * Function run one RGB
+ * Function run the blinking of RGB
  */
-void runBlinkOneRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour){
+void runBlinkRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour){
     if(getTicks() - *prevGetFlicker >= 333){
     	*prevGetFlicker = getTicks();
     	*flag = !(*flag);
@@ -384,22 +384,6 @@ void runBlinkOneRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour){
     		rgb_setLeds(colour);
     	else
     		rgb_setLeds(0);
-    }
-}
-
-/**
- * Function run two RGB
- */
-void runBlinkTwoRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour1, uint8_t colour2){
-    if(getTicks() - *prevGetFlicker >= 333){
-    	*prevGetFlicker = getTicks();
-    	*flag = !(*flag);
-    	if(*flag == 1){
-    		rgb_setLeds(RGB_RED);
-    		rgb_setLeds(RGB_BLUE);
-    	} else {
-    		rgb_setLeds(0);
-    	}
     }
 }
 
@@ -523,13 +507,13 @@ int main (void) {
         run7Seg(&segCount,&prevGetTicks);
 
         // Blink Red
-        //runBlinkOneRGB(&flag,&prevGetFlicker,RGB_RED);
+        //runBlinkRGB(&flag,&prevGetFlicker,RGB_RED);
 
         // Blink Blue
-        //runBlinkOneRGB(&flag,&prevGetFlicker,RGB_BLUE);
+        //runBlinkRGB(&flag,&prevGetFlicker,RGB_BLUE);
 
         // Blink Both
-        runBlinkTwoRGB(&flag, &prevGetFlicker, RGB_RED, RGB_BLUE);
+        runBlinkRGB(&flag, &prevGetFlicker,RGB_RED_AND_BLUE);
 
         /* ############ Trimpot and RGB LED  ########### */
         /* # */
