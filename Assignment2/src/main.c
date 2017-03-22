@@ -6,20 +6,37 @@
  *
  ******************************************************************************/
 
+/**
+ * Import Libraries from LPC17
+ */
 #include "lpc17xx_pinsel.h"
 #include "lpc17xx_gpio.h"
 #include "lpc17xx_i2c.h"
 #include "lpc17xx_ssp.h"
 #include "lpc17xx_timer.h"
 
+/**
+ * Import Libraries from Baseboard
+ */
 #include "joystick.h"
 #include "pca9532.h"
 #include "acc.h"
 #include "oled.h"
 #include "rgb.h"
+#include "led7seg.h"
+#include "light.h"
 
+/**
+ * Declaration of Variables
+ */
 static uint8_t barPos = 2;
+uint32_t msTicks = 0;
+uint32_t lightValue;
 
+
+/**
+ * Move Bar
+ */
 static void moveBar(uint8_t steps, uint8_t dir)
 {
     uint16_t ledOn = 0;
@@ -37,7 +54,9 @@ static void moveBar(uint8_t steps, uint8_t dir)
     pca9532_setLeds(ledOn, 0xffff);
 }
 
-
+/**
+ * Draw O Led
+ */
 static void drawOled(uint8_t joyState)
 {
     static int wait = 0;
@@ -80,12 +99,17 @@ static void drawOled(uint8_t joyState)
 }
 
 
+/**
+ * Defining Note PIN
+ */
 #define NOTE_PIN_HIGH() GPIO_SetValue(0, 1<<26);
 #define NOTE_PIN_LOW()  GPIO_ClearValue(0, 1<<26);
 
 
 
-
+/**
+ * Declaration of notes
+ */
 static uint32_t notes[] = {
         2272, // A - 440 Hz
         2024, // B - 494 Hz
@@ -103,6 +127,9 @@ static uint32_t notes[] = {
         1275, // g - 784 Hz
 };
 
+/**
+ * Function to Play Note
+ */
 static void playNote(uint32_t note, uint32_t durationMs) {
 
     uint32_t t = 0;
@@ -128,6 +155,9 @@ static void playNote(uint32_t note, uint32_t durationMs) {
     }
 }
 
+/**
+ * Function to get Note
+ */
 static uint32_t getNote(uint8_t ch)
 {
     if (ch >= 'A' && ch <= 'G')
@@ -139,6 +169,9 @@ static uint32_t getNote(uint8_t ch)
     return 0;
 }
 
+/**
+ * Function to get the duration
+ */
 static uint32_t getDuration(uint8_t ch)
 {
     if (ch < '0' || ch > '9')
@@ -149,6 +182,9 @@ static uint32_t getDuration(uint8_t ch)
     return (ch - '0') * 200;
 }
 
+/**
+ * Function to get pause
+ */
 static uint32_t getPause(uint8_t ch)
 {
     switch (ch) {
@@ -165,6 +201,9 @@ static uint32_t getPause(uint8_t ch)
     }
 }
 
+/**
+ * Function to play song
+ */
 static void playSong(uint8_t *song) {
     uint32_t note = 0;
     uint32_t dur  = 0;
@@ -193,12 +232,16 @@ static void playSong(uint8_t *song) {
     }
 }
 
+/**
+ * Declaration of song notes
+ */
 static uint8_t * song = (uint8_t*)"C2.C2,D4,C4,F4,E8,";
         //(uint8_t*)"C2.C2,D4,C4,F4,E8,C2.C2,D4,C4,G4,F8,C2.C2,c4,A4,F4,E4,D4,A2.A2,H4,F4,G4,F8,";
         //"D4,B4,B4,A4,A4,G4,E4,D4.D2,E4,E4,A4,F4,D8.D4,d4,d4,c4,c4,B4,G4,E4.E2,F4,F4,A4,A4,G8,";
 
-
-
+/**
+ * Pin Configurations
+ */
 static void init_ssp(void)
 {
 	SSP_CFG_Type SSP_ConfigStruct;
@@ -236,6 +279,9 @@ static void init_ssp(void)
 
 }
 
+/**
+ * Initialization of i2c
+ */
 static void init_i2c(void)
 {
 	PINSEL_CFG_Type PinCfg;
@@ -255,25 +301,99 @@ static void init_i2c(void)
 	I2C_Cmd(LPC_I2C2, ENABLE);
 }
 
+/**
+ * Initialization of GPIO
+ */
 static void init_GPIO(void)
 {
-	// Initialize button
+	// Initialize button SW4 (not really necessary since default configuration)
+		PINSEL_CFG_Type PinCfg;
+		PinCfg.Funcnum = 0;
+		PinCfg.OpenDrain = 0;
+		PinCfg.Pinmode = 0;
+		PinCfg.Portnum = 1;
+		PinCfg.Pinnum = 31;
+		PINSEL_ConfigPin(&PinCfg);
+		GPIO_SetDir(1, 1<<31, 0);
 
+		//Initialize button sw3
+		PinCfg.Funcnum = 0;
+		PinCfg.OpenDrain = 0;
+		PinCfg.Pinmode = 0;
+		PinCfg.Portnum = 2;
+		PinCfg.Pinnum = 10;
+		PINSEL_ConfigPin(&PinCfg);
+		GPIO_SetDir(2, 1 << 10, 0);
 
+		/* ---- Speaker ------> */
 
+		   GPIO_SetDir(2, 1<<0, 1);
+		   GPIO_SetDir(2, 1<<1, 1);
 
+		   GPIO_SetDir(0, 1<<27, 1);
+		   GPIO_SetDir(0, 1<<28, 1);
+		   GPIO_SetDir(2, 1<<13, 1);
 
+		   // Main tone signal : P0.26
+		   GPIO_SetDir(0, 1<<26, 1);
 
-
-
-
-
+		   GPIO_ClearValue(0, 1<<27); //LM4811-clk
+		   GPIO_ClearValue(0, 1<<28); //LM4811-up/dn
+		   GPIO_ClearValue(2, 1<<13); //LM4811-shutdn
 
 }
 
+/**
+ * Method of Tick Handler
+ * Increase tick count by 1 every millisecond
+ */
+void SysTick_Handler(void) {
+    msTicks++;
+}
 
+/**
+ * Method to get the tick count
+ */
+static const uint32_t getTicks(void) {
+    return msTicks;
+}
+
+/**
+ * Function to display 7 Seg
+ */
+const char displayValues[] = "0123456789ABCDEF";
+void run7Seg(int *segCount, uint32_t *prevGetTicks){
+	if(getTicks()-(*prevGetTicks) >= 1000){
+		*prevGetTicks = getTicks();
+		led7seg_setChar(displayValues[*segCount], FALSE);
+		if(*segCount == 15)
+			*segCount = 0;
+		else
+			(*segCount)++;
+    }
+}
+
+/**
+ * Function run the blinking of RGB
+ */
+void runBlinkRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour){
+    if(getTicks() - *prevGetFlicker >= 333){
+    	*prevGetFlicker = getTicks();
+    	*flag = !(*flag);
+    	if(*flag == 1)
+    		rgb_setLeds(colour);
+    	else
+    		rgb_setLeds(0);
+    }
+}
+
+/**
+ * Main Method
+ */
 int main (void) {
 
+	int segCount = 0;
+	int led = 0;
 
     int32_t xoff = 0;
     int32_t yoff = 0;
@@ -286,9 +406,10 @@ int main (void) {
     uint8_t dir = 1;
     uint8_t wait = 0;
 
-    uint8_t state    = 0;
+    uint8_t state = 0;
 
     uint8_t btn1 = 1;
+    uint8_t RGB_RED_AND_BLUE = 0x03;
 
 
     init_i2c();
@@ -299,8 +420,23 @@ int main (void) {
     joystick_init();
     acc_init();
     oled_init();
+    rgb_init();
+    light_enable();
 
+    //temp sensor
+    //temperature sensor init
+    //temp_init(&getTicks);
 
+    // 7 Seg
+    led7seg_init();
+    uint32_t prevGetTicks = getTicks();
+    uint32_t prevGetFlicker = getTicks();
+    int flag = 0;
+
+    // Setup SysTick Timer to interrupt at 1 msec intervals
+	if (SysTick_Config(SystemCoreClock / 1000)) {
+	    while (1);  // Capture error
+	}
 
     /*
      * Assume base board in zero-g position when reading first value.
@@ -329,9 +465,9 @@ int main (void) {
     moveBar(1, dir);
     oled_clearScreen(OLED_COLOR_BLACK);
 
+
     while (1)
     {
-
         /* ####### Accelerometer and LEDs  ###### */
         /* # */
 
@@ -361,29 +497,58 @@ int main (void) {
         /* ####### Joystick and OLED  ###### */
         /* # */
 
+        /*
         state = joystick_read();
         if (state != 0)
             drawOled(state);
+        */
 
-        /* # */
-        /* ############################################# */
+        // 7 Segment Display
+        run7Seg(&segCount,&prevGetTicks);
 
+        // Blink Red
+        //runBlinkRGB(&flag,&prevGetFlicker,RGB_RED);
 
+        // Blink Blue
+        //runBlinkRGB(&flag,&prevGetFlicker,RGB_BLUE);
+
+        // Blink Both
+        runBlinkRGB(&flag, &prevGetFlicker,RGB_RED_AND_BLUE);
 
         /* ############ Trimpot and RGB LED  ########### */
         /* # */
 
 
-        if (btn1 == 0)
-        {
-            playSong(song);
+        /* ############ Trimpot and RGB LED  ########### */
+        /* # */
+
+        /*
+        //OLED controller (redundant code, not in assignment)
+        if(led == 0){
+        	pca9532_setLeds(1,0);
+        	led = 1;
         }
+        else{
+        	pca9532_setLeds( led<<1, led);
+        	led = led << 1;
+        }
+        if(led == 0x10000){
+        	led = 0;
+        }
+        */
+
+        //light Sensor (testing only, working though)
+        lightValue = light_read();
+        uint8_t LOW = (lightValue >= 50);
+
+		/*
+        //oled
+        //oled_clearScreen(OLED_COLOR_BLACK);
+        oled_putString(20, 20, (uint8_t*)"test", OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+        */
 
 
-        Timer0_Wait(1);
     }
-
-
 }
 
 void check_failed(uint8_t *file, uint32_t line)
@@ -394,4 +559,3 @@ void check_failed(uint8_t *file, uint32_t line)
 	/* Infinite loop */
 	while(1);
 }
-
