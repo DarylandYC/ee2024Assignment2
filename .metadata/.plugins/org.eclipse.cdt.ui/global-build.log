@@ -1,0 +1,48 @@
+18:36:53 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+18:36:55 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+18:36:58 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+18:37:10 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'main':
+../src/main.c:544:17: warning: unused variable 'LOW' [-Wunused-variable]
+../src/main.c:411:13: warning: unused variable 'btn1' [-Wunused-variable]
+../src/main.c:409:13: warning: unused variable 'state' [-Wunused-variable]
+../src/main.c:396:6: warning: unused variable 'led' [-Wunused-variable]
+../src/main.c: At top level:
+../src/main.c:60:13: warning: 'drawOled' defined but not used [-Wunused-function]
+../src/main.c:207:13: warning: 'playSong' defined but not used [-Wunused-function]
+../src/main.c:238:18: warning: 'song' defined but not used [-Wunused-variable]
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  14676	    160	    852	  15688	   3d48	Assignment2.axf
+ 
+18:44:34 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+18:44:36 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+18:44:38 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+18:44:45 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+make: Nothing to be done for `all'.
