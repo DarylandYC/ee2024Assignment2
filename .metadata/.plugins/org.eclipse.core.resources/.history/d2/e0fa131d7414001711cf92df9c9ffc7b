@@ -282,6 +282,13 @@ uint32_t getTicks() {
     return msTicks;
 }
 
+void setSampling(int flag, int *segCount){
+	if(segCount = 5 || segCount = 10 || segCount = 15){
+		flag = 1;
+	}
+	else
+		flag = 0;
+}
 
 /**
  * Function to display 7 Seg
@@ -291,6 +298,7 @@ void run7Seg(int *segCount, uint32_t *prevGetTicks){
 	if(getTicks()-(*prevGetTicks) >= 1000){
 		*prevGetTicks = getTicks();
 		led7seg_setChar(displayValues[*segCount], FALSE);
+		setSampling(flag, segCount);
 		if(*segCount == 15)
 			*segCount = 0;
 		else
@@ -318,8 +326,7 @@ void runBlinkRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour){
 int main (void) {
 
 	int segCount = 0;
-	int *digit;
-	digit = &segCount;
+	int flag = 0;
 
     int32_t xoff = 0;
     int32_t yoff = 0;
@@ -429,7 +436,7 @@ int main (void) {
 
         //oled
         //oled_clearScreen(OLED_COLOR_BLACK);
-        if(*digit == 5 || *digit == 10 || *digit == 15){
+        if(flag = 1){
         	readSensors(&light, &temperature, &x, &y, &z);
         	x = x + xoff;
 			y = y + yoff;

@@ -282,7 +282,6 @@ uint32_t getTicks() {
     return msTicks;
 }
 
-
 /**
  * Function to display 7 Seg
  */
@@ -318,8 +317,6 @@ void runBlinkRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour){
 int main (void) {
 
 	int segCount = 0;
-	int *digit;
-	digit = &segCount;
 
     int32_t xoff = 0;
     int32_t yoff = 0;
@@ -429,7 +426,7 @@ int main (void) {
 
         //oled
         //oled_clearScreen(OLED_COLOR_BLACK);
-        if(*digit == 5 || *digit == 10 || *digit == 15){
+        if(displayValues[5] || displayValues[10] || displayValues[15]){
         	readSensors(&light, &temperature, &x, &y, &z);
         	x = x + xoff;
 			y = y + yoff;

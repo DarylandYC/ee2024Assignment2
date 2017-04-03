@@ -282,7 +282,6 @@ uint32_t getTicks() {
     return msTicks;
 }
 
-
 /**
  * Function to display 7 Seg
  */
@@ -318,8 +317,6 @@ void runBlinkRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour){
 int main (void) {
 
 	int segCount = 0;
-	int *digit;
-	digit = &segCount;
 
     int32_t xoff = 0;
     int32_t yoff = 0;
@@ -429,23 +426,20 @@ int main (void) {
 
         //oled
         //oled_clearScreen(OLED_COLOR_BLACK);
-        if(*digit == 5 || *digit == 10 || *digit == 15){
-        	readSensors(&light, &temperature, &x, &y, &z);
-        	x = x + xoff;
-			y = y + yoff;
-			z = z + zoff;
-			sprintf(OLED_TEMPERATURE, "Temp: %.1f", temperature/10.0);
-			sprintf(OLED_LIGHT, "Light: %lu", light);
-			sprintf(OLED_X, "X: %d", x);
-			sprintf(OLED_Y, "y: %d", y);
-			sprintf(OLED_Z, "z: %d", z);
-			oled_putString(0, 0, (uint8_t*) OLED_TEMPERATURE, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-			oled_putString(0, 10, (uint8_t*) OLED_LIGHT, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-			oled_putString(0, 20, (uint8_t*) OLED_X, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-			oled_putString(0, 30, (uint8_t*) OLED_Y, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-			oled_putString(0, 40, (uint8_t*) OLED_Z, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-        }
-
+        readSensors(&light, &temperature, &x, &y, &z);
+        x = x + xoff;
+        y = y + yoff;
+        z = z + zoff;
+        sprintf(OLED_TEMPERATURE, "Temp: %.1f", temperature/10.0);
+        sprintf(OLED_LIGHT, "Light: %lu", light);
+        sprintf(OLED_X, "X: %d", x);
+        sprintf(OLED_Y, "y: %d", y);
+        sprintf(OLED_Z, "z: %d", z);
+        oled_putString(0, 0, (uint8_t*) OLED_TEMPERATURE, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+        oled_putString(0, 10, (uint8_t*) OLED_LIGHT, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+        oled_putString(0, 20, (uint8_t*) OLED_X, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+        oled_putString(0, 30, (uint8_t*) OLED_Y, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+        oled_putString(0, 40, (uint8_t*) OLED_Z, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
 
     }
 }

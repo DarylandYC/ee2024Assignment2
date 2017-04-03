@@ -1016,3 +1016,421 @@ arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.ax
    text	   data	    bss	    dec	    hex	filename
   34796	   2260	   1004	  38060	   94ac	Assignment2.axf
  
+19:05:07 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:05:09 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:05:13 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:05:25 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:52:1: warning: useless storage class specifier in empty declaration [enabled by default]
+../src/main.c: In function 'readSensors':
+../src/main.c:58:3: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:429:12: error: invalid type argument of unary '*' (have 'int')
+../src/main.c:429:28: error: invalid type argument of unary '*' (have 'int')
+../src/main.c:429:45: error: invalid type argument of unary '*' (have 'int')
+../src/main.c:430:10: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:443:81: error: expected statement before ')' token
+../src/main.c:330:13: warning: unused variable 'wait' [-Wunused-variable]
+../src/main.c: At top level:
+../src/main.c:136:17: warning: 'getDuration' defined but not used [-Wunused-function]
+../src/main.c:149:17: warning: 'getPause' defined but not used [-Wunused-function]
+make: *** [src/main.o] Error 1
+19:05:57 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:06:00 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:06:05 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:06:13 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:52:1: warning: useless storage class specifier in empty declaration [enabled by default]
+../src/main.c: In function 'readSensors':
+../src/main.c:58:3: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:429:12: error: invalid type argument of unary '*' (have 'int')
+../src/main.c:429:28: error: invalid type argument of unary '*' (have 'int')
+../src/main.c:429:45: error: invalid type argument of unary '*' (have 'int')
+../src/main.c:430:10: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:443:80: error: expected ';' before ')' token
+../src/main.c:443:80: error: expected statement before ')' token
+../src/main.c:330:13: warning: unused variable 'wait' [-Wunused-variable]
+../src/main.c: At top level:
+../src/main.c:136:17: warning: 'getDuration' defined but not used [-Wunused-function]
+../src/main.c:149:17: warning: 'getPause' defined but not used [-Wunused-function]
+make: *** [src/main.o] Error 1
+19:06:46 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:06:49 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:06:51 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:07:02 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:52:1: warning: useless storage class specifier in empty declaration [enabled by default]
+../src/main.c: In function 'readSensors':
+../src/main.c:58:3: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:429:12: error: invalid type argument of unary '*' (have 'int')
+../src/main.c:429:28: error: invalid type argument of unary '*' (have 'int')
+../src/main.c:429:45: error: invalid type argument of unary '*' (have 'int')
+../src/main.c:430:10: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:330:13: warning: unused variable 'wait' [-Wunused-variable]
+../src/main.c: At top level:
+../src/main.c:136:17: warning: 'getDuration' defined but not used [-Wunused-function]
+../src/main.c:149:17: warning: 'getPause' defined but not used [-Wunused-function]
+make: *** [src/main.o] Error 1
+19:11:24 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:11:26 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:11:30 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:11:40 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:52:1: warning: useless storage class specifier in empty declaration [enabled by default]
+../src/main.c: In function 'readSensors':
+../src/main.c:58:3: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:429:54: error: lvalue required as left operand of assignment
+../src/main.c:430:10: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:330:13: warning: unused variable 'wait' [-Wunused-variable]
+../src/main.c: At top level:
+../src/main.c:136:17: warning: 'getDuration' defined but not used [-Wunused-function]
+../src/main.c:149:17: warning: 'getPause' defined but not used [-Wunused-function]
+make: *** [src/main.o] Error 1
+19:13:12 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:13:14 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:13:17 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:13:27 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:52:1: warning: useless storage class specifier in empty declaration [enabled by default]
+../src/main.c: In function 'readSensors':
+../src/main.c:58:3: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:430:10: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:330:13: warning: unused variable 'wait' [-Wunused-variable]
+../src/main.c: At top level:
+../src/main.c:136:17: warning: 'getDuration' defined but not used [-Wunused-function]
+../src/main.c:149:17: warning: 'getPause' defined but not used [-Wunused-function]
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  34844	   2260	   1004	  38108	   94dc	Assignment2.axf
+ 
+19:15:50 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:15:53 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:15:54 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:16:05 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:52:1: warning: useless storage class specifier in empty declaration [enabled by default]
+../src/main.c: In function 'readSensors':
+../src/main.c:58:3: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:429:9: error: too few arguments to function 'led7seg_setChar'
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/led7seg.h:15:6: note: declared here
+../src/main.c:429:9: error: too few arguments to function 'led7seg_setChar'
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/led7seg.h:15:6: note: declared here
+../src/main.c:429:9: error: too few arguments to function 'led7seg_setChar'
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/led7seg.h:15:6: note: declared here
+../src/main.c:430:10: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:330:13: warning: unused variable 'wait' [-Wunused-variable]
+../src/main.c: At top level:
+../src/main.c:136:17: warning: 'getDuration' defined but not used [-Wunused-function]
+../src/main.c:149:17: warning: 'getPause' defined but not used [-Wunused-function]
+make: *** [src/main.o] Error 1
+19:22:43 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:22:47 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:22:52 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:23:02 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:52:1: warning: useless storage class specifier in empty declaration [enabled by default]
+../src/main.c: In function 'readSensors':
+../src/main.c:58:3: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:430:10: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:430:10: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:330:13: warning: unused variable 'wait' [-Wunused-variable]
+../src/main.c: At top level:
+../src/main.c:136:17: warning: 'getDuration' defined but not used [-Wunused-function]
+../src/main.c:149:17: warning: 'getPause' defined but not used [-Wunused-function]
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  34844	   2260	   1004	  38108	   94dc	Assignment2.axf
+ 
+19:35:55 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:35:58 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:36:00 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:36:11 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:52:1: warning: useless storage class specifier in empty declaration [enabled by default]
+../src/main.c: In function 'readSensors':
+../src/main.c:58:3: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'setSampling':
+../src/main.c:286:47: error: lvalue required as left operand of assignment
+../src/main.c: In function 'run7Seg':
+../src/main.c:301:15: error: 'flag' undeclared (first use in this function)
+../src/main.c:301:15: note: each undeclared identifier is reported only once for each function it appears in
+../src/main.c: In function 'main':
+../src/main.c:369:9: error: redefinition of 'flag'
+../src/main.c:329:6: note: previous definition of 'flag' was here
+../src/main.c:439:9: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+../src/main.c:440:10: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:440:10: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:440:10: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:340:13: warning: unused variable 'wait' [-Wunused-variable]
+../src/main.c: At top level:
+../src/main.c:136:17: warning: 'getDuration' defined but not used [-Wunused-function]
+../src/main.c:149:17: warning: 'getPause' defined but not used [-Wunused-function]
+make: *** [src/main.o] Error 1
+23:22:25 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+23:22:31 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+23:22:34 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+23:22:47 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:52:1: warning: useless storage class specifier in empty declaration [enabled by default]
+../src/main.c: In function 'readSensors':
+../src/main.c:58:3: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:431:12: error: invalid type argument of unary '*' (have 'int')
+../src/main.c:431:30: error: invalid type argument of unary '*' (have 'int')
+../src/main.c:431:49: error: invalid type argument of unary '*' (have 'int')
+../src/main.c:432:10: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:432:10: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:432:10: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:332:13: warning: unused variable 'wait' [-Wunused-variable]
+../src/main.c: At top level:
+../src/main.c:136:17: warning: 'getDuration' defined but not used [-Wunused-function]
+../src/main.c:149:17: warning: 'getPause' defined but not used [-Wunused-function]
+make: *** [src/main.o] Error 1
+23:26:00 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+23:26:02 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+23:26:05 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+23:26:15 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:52:1: warning: useless storage class specifier in empty declaration [enabled by default]
+../src/main.c: In function 'readSensors':
+../src/main.c:58:3: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:58:3: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:433:10: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:433:10: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:433:10: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:55:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:333:13: warning: unused variable 'wait' [-Wunused-variable]
+../src/main.c: At top level:
+../src/main.c:136:17: warning: 'getDuration' defined but not used [-Wunused-function]
+../src/main.c:149:17: warning: 'getPause' defined but not used [-Wunused-function]
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  34828	   2260	   1004	  38092	   94cc	Assignment2.axf
+ 
+18:52:58 **** Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+18:53:05 **** Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+18:53:08 **** Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+18:53:21 **** Build of configuration Debug for project Assignment2 ****
+make all 
+make: Nothing to be done for `all'.
