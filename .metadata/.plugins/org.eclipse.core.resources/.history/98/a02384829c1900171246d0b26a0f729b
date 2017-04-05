@@ -46,11 +46,18 @@ char OLED_X[15];
 char OLED_Y[15];
 char OLED_Z[15];
 
-//Read Sensors
+//Enum
+typedef enum{
+	MODE_STABLE, MODE_MONITOR
+} system_mode;
+
+volatile system_mode mode;
+
+//Read Sensors (light, temperature, accelerometer)
 void readSensors(uint32_t* light, uint32_t* temperature, uint8_t* x, uint8_t* y, uint8_t* z){
-		*temperature = temp_read();
-		*light = light_read();
-		acc_read(&*x, &*y, &*z);
+	*light = light_read();
+	*temperature = temp_read();
+	acc_read(&*x, &*y, &*z);
 }
 
 /**
@@ -123,7 +130,6 @@ static void drawOled(uint8_t joyState)
  */
 #define NOTE_PIN_HIGH() GPIO_SetValue(0, 1<<26);
 #define NOTE_PIN_LOW()  GPIO_ClearValue(0, 1<<26);
-
 
 /**
  * Function to get the duration
@@ -277,6 +283,7 @@ uint32_t getTicks() {
     return msTicks;
 }
 
+
 /**
  * Function to display 7 Seg
  */
@@ -311,6 +318,11 @@ void runBlinkRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour){
  */
 int main (void) {
 
+    // Setup SysTick Timer to interrupt at 1 msec intervals
+	if (SysTick_Config(SystemCoreClock / 1000)) {
+	    while (1);  // Capture error
+	}
+
 	int segCount = 0;
 
     int32_t xoff = 0;
@@ -318,16 +330,14 @@ int main (void) {
     int32_t zoff = 0;
 
     int8_t x = 0;
-
     int8_t y = 0;
     int8_t z = 0;
     uint8_t dir = 1;
-    uint8_t wait = 0;
 
-    uint8_t state = 0;
+    uint8_t sw4 = 0;
+    uint32_t sw4PressTicks = getTicks();
 
     uint8_t RGB_RED_AND_BLUE = 0x03;
-
 
     init_i2c();
     init_ssp();
@@ -353,11 +363,6 @@ int main (void) {
     uint32_t prevGetFlicker = getTicks();
     int flag = 0;
 
-    // Setup SysTick Timer to interrupt at 1 msec intervals
-	if (SysTick_Config(SystemCoreClock / 1000)) {
-	    while (1);  // Capture error
-	}
-
     /*
      * Assume base board in zero-g position when reading first value.
      */
@@ -380,62 +385,62 @@ int main (void) {
     GPIO_ClearValue(0, 1<<28); //LM4811-up/dn
     GPIO_ClearValue(2, 1<<13); //LM4811-shutdn
 
-    /* <---- Speaker ------ */
-
     moveBar(1, dir);
     oled_clearScreen(OLED_COLOR_BLACK);
 
-
     while (1)
     {
+    	sw4 = (GPIO_ReadValue(1) >> 31) & 0x01;
+    	if((sw4 == 0)&& (getTicks()- sw4PressTicks >= 500)){
+    		sw4PressTicks = getTicks();
+    		if(mode == MODE_STABLE)
+    			mode = MODE_MONITOR;
+    		else
+    			mode = MODE_STABLE;
+    	}
 
+    	switch(mode){
+    		case MODE_STABLE:
+    			oled_clearScreen(OLED_COLOR_BLACK);
+    		break;
 
-        /* ####### Joystick and OLED  ###### */
-        /* # */
+    		case MODE_MONITOR:
 
+    	        /**
+    	         * 7 Segment Display
+    	         * Increases segCount after use
+    	         */
+    	        run7Seg(&segCount,&prevGetTicks);
 
-        state = joystick_read();
-        if (state != 0)
-            drawOled(state);
+    	        /**
+    	         * OLED
+    	         * Values changes when 7Seg display 5,10,15
+    	         * segCount is 1 value higher as it is incremented by run7seg
+    	         */
+    	        if(segCount == 6 || segCount == 11 || segCount == 0){
+    	        	readSensors(&light, &temperature, &x, &y, &z);
+    	        	x = x + xoff;
+    				y = y + yoff;
+    				z = z + zoff;
+    				sprintf(OLED_TEMPERATURE, "Temp: %.1f", temperature/10.0);
+    				sprintf(OLED_LIGHT, "Light: %lu", light);
+    				sprintf(OLED_X, "X: %d", x);
+    				sprintf(OLED_Y, "y: %d", y);
+    				sprintf(OLED_Z, "z: %d", z);
+    				oled_putString(0, 0, (uint8_t*) OLED_TEMPERATURE, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+    				oled_putString(0, 10, (uint8_t*) OLED_LIGHT, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+    				oled_putString(0, 20, (uint8_t*) OLED_X, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+    				oled_putString(0, 30, (uint8_t*) OLED_Y, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+    				oled_putString(0, 40, (uint8_t*) OLED_Z, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+    	        }
 
+    	        // Blink
+    	        //runBlinkRGB(&flag,&prevGetFlicker,RGB_RED); // Red
+    	        //runBlinkRGB(&flag,&prevGetFlicker,RGB_BLUE); // Blue
+    	        runBlinkRGB(&flag, &prevGetFlicker,RGB_RED_AND_BLUE); // Both
 
-        // 7 Segment Display
-        run7Seg(&segCount,&prevGetTicks);
-
-        // Blink Red
-        //runBlinkRGB(&flag,&prevGetFlicker,RGB_RED);
-
-        // Blink Blue
-        //runBlinkRGB(&flag,&prevGetFlicker,RGB_BLUE);
-
-        // Blink Both
-        runBlinkRGB(&flag, &prevGetFlicker,RGB_RED_AND_BLUE);
-
-        /* ############ Trimpot and RGB LED  ########### */
-        /* # */
-
-
-        /* ############ Trimpot and RGB LED  ########### */
-        /* # */
-
-
-        //oled
-        //oled_clearScreen(OLED_COLOR_BLACK);
-        readSensors(&light, &temperature, &x, &y, &z);
-        x = x + xoff;
-        y = y + yoff;
-        z = z + zoff;
-        sprintf(OLED_TEMPERATURE, "Temp: %lu", (float) temperature/10);
-        sprintf(OLED_LIGHT, "Light: %lu", light);
-        sprintf(OLED_X, "X: %lu", x);
-        sprintf(OLED_Y, "y: %lu", y);
-        sprintf(OLED_Z, "z: %lu", z);
-        oled_putString(0, 0, (uint8_t*) OLED_TEMPERATURE, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-        oled_putString(0, 10, (uint8_t*) OLED_LIGHT, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-        oled_putString(0, 20, (uint8_t*) OLED_X, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-        oled_putString(0, 30, (uint8_t*) OLED_Y, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-        oled_putString(0, 40, (uint8_t*) OLED_Z, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-
+    		break;
+    	}
     }
 }
 

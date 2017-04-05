@@ -330,7 +330,6 @@ int main (void) {
     int32_t xoff = 0;
     int32_t yoff = 0;
     int32_t zoff = 0;
-    int32_t movement = 0;
 
     int8_t x = 0;
     int8_t y = 0;
@@ -403,37 +402,10 @@ int main (void) {
     	}
 
     	switch(mode){
-    		/**
-    		 * All Sensors are turned off, no readings are being made
-    		 */
     		case MODE_STABLE:
-        		/**
-        		 * Turns the OLED Screen off
-        		 */
     			oled_clearScreen(OLED_COLOR_BLACK);
-
-        		/**
-        		 * Turns the OLED Screen off
-        		 */
-    			led7seg_setChar(' ', FALSE);
-
-        		/**
-        		 * Rest the count of the 7 Seg
-        		 */
-    			segCount = 0;
-
     		break;
 
-    		/**
-    		 * Turn the following devices on:
-    		 * 	1) 7 Segment Display
-    		 * 	2) Temperature Sensor
-    		 * 	3) Light Sensors
-    		 * 	4) Accelerometer
-    		 * 	5) OLED
-    		 * 	6) UART
-    		 * 	7) Blinking Lights
-    		 */
     		case MODE_MONITOR:
 
     	        /**
@@ -464,14 +436,8 @@ int main (void) {
     				oled_putString(0, 40, (uint8_t*) OLED_Z, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
     	        }
 
-    	        /**
-    	         * Check to see if the LPC is returning any warnings
-    	         * High Temperature: 		Blink Red
-    	         * Movement and Low Light: 	Blink Blue
-    	         * Do note that both can occur at the same time
-    	         */
-    	        movement = xoff + yoff + zoff;
-    	        if(temperature/10.0 > TEMP_HIGH_WARNING && movement > 0 && light < LIGHT_LOW_WARNING){
+    	        movement = xoff+yoff+zoff;
+    	        if(temperature/10.0 > TEMP_HIGH_WARNING && movement && light < LIGHT_LOW_WARNING){
     	        	runBlinkRGB(&flag, &prevGetFlicker,RGB_RED_AND_BLUE);
     	        } else if (temperature/10.0 > TEMP_HIGH_WARNING){
     	        	runBlinkRGB(&flag,&prevGetFlicker,RGB_RED);
