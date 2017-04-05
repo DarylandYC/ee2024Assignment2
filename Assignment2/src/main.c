@@ -28,36 +28,38 @@
 #include "light.h"
 #include "temp.h"
 
+/**
+ * Import Libraries from C
+ */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 /**
- * Declaration of Variables
+ * Define Constants
  */
 #define LIGHT_LOW_WARNING 50
-#define TEMP_HIGH_WARNING 45
-static uint8_t barPos = 2;
-uint32_t msTicks = 0;
-uint32_t light = 0;
-uint32_t temperature = 0;
-int8_t x = 0, y = 0, z = 0;
-unsigned char result[100] = "";
+#define TEMP_HIGH_WARNING 26
 
-//OLED Strings
-char OLED_TEMPERATURE[15];
-char OLED_LIGHT[15];
-char OLED_X[15];
-char OLED_Y[15];
-char OLED_Z[15];
-
-//Enum
+/**
+ * Define the two different types of mode
+ */
 typedef enum{
 	MODE_STABLE, MODE_MONITOR
 } system_mode;
 
+/**
+ * Initialize Variables
+ */
 volatile system_mode mode;
+uint32_t msTicks = 0;
 
-//Read Sensors (light, temperature, accelerometer)
+/**
+ * Read Sensors
+ * 	1) Light
+ * 	2) Temperature
+ * 	3) Accelerometer
+ */
 void readSensors(uint32_t* light, uint32_t* temperature, uint8_t* x, uint8_t* y, uint8_t* z){
 	*light = light_read();
 	*temperature = temp_read();
@@ -65,151 +67,7 @@ void readSensors(uint32_t* light, uint32_t* temperature, uint8_t* x, uint8_t* y,
 }
 
 /**
- * Move Bar
- */
-static void moveBar(uint8_t steps, uint8_t dir)
-{
-    uint16_t ledOn = 0;
-
-    if (barPos == 0)
-        ledOn = (1 << 0) | (3 << 14);
-    else if (barPos == 1)
-        ledOn = (3 << 0) | (1 << 15);
-    else
-        ledOn = 0x07 << (barPos-2);
-
-    barPos += (dir*steps);
-    barPos = (barPos % 16);
-
-    pca9532_setLeds(ledOn, 0xffff);
-}
-
-/**
- * Draw O Led
- */
-static void drawOled(uint8_t joyState)
-{
-    static int wait = 0;
-    static uint8_t currX = 48;
-    static uint8_t currY = 32;
-    static uint8_t lastX = 0;
-    static uint8_t lastY = 0;
-
-    if ((joyState & JOYSTICK_CENTER) != 0) {
-        oled_clearScreen(OLED_COLOR_BLACK);
-        return;
-    }
-
-    if (wait++ < 3)
-        return;
-
-    wait = 0;
-
-    if ((joyState & JOYSTICK_UP) != 0 && currY > 0) {
-        currY--;
-    }
-
-    if ((joyState & JOYSTICK_DOWN) != 0 && currY < OLED_DISPLAY_HEIGHT-1) {
-        currY++;
-    }
-
-    if ((joyState & JOYSTICK_RIGHT) != 0 && currX < OLED_DISPLAY_WIDTH-1) {
-        currX++;
-    }
-
-    if ((joyState & JOYSTICK_LEFT) != 0 && currX > 0) {
-        currX--;
-    }
-
-    if (lastX != currX || lastY != currY) {
-        oled_putPixel(currX, currY, OLED_COLOR_WHITE);
-        lastX = currX;
-        lastY = currY;
-    }
-}
-
-
-/**
- * Defining Note PIN
- */
-#define NOTE_PIN_HIGH() GPIO_SetValue(0, 1<<26);
-#define NOTE_PIN_LOW()  GPIO_ClearValue(0, 1<<26);
-
-/**
- * Function to get the duration
- */
-static uint32_t getDuration(uint8_t ch)
-{
-    if (ch < '0' || ch > '9')
-        return 400;
-
-    /* number of ms */
-
-    return (ch - '0') * 200;
-}
-
-/**
- * Function to get pause
- */
-static uint32_t getPause(uint8_t ch)
-{
-    switch (ch) {
-    case '+':
-        return 0;
-    case ',':
-        return 5;
-    case '.':
-        return 20;
-    case '_':
-        return 30;
-    default:
-        return 5;
-    }
-}
-
-/**
- * Function to play song
- */
-
-static void init_ssp(void)
-{
-	SSP_CFG_Type SSP_ConfigStruct;
-	PINSEL_CFG_Type PinCfg;
-
-	/*
-	 * Initialize SPI pin connect
-	 * P0.7 - SCK;
-	 * P0.8 - MISO
-	 * P0.9 - MOSI
-	 * P2.2 - SSEL - used as GPIO
-	 */
-	PinCfg.Funcnum = 2;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Portnum = 0;
-	PinCfg.Pinnum = 7;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 8;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 9;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Funcnum = 0;
-	PinCfg.Portnum = 2;
-	PinCfg.Pinnum = 2;
-	PINSEL_ConfigPin(&PinCfg);
-
-	SSP_ConfigStructInit(&SSP_ConfigStruct);
-
-	// Initialize SSP peripheral with parameter given in structure above
-	SSP_Init(LPC_SSP1, &SSP_ConfigStruct);
-
-	// Enable SSP peripheral
-	SSP_Cmd(LPC_SSP1, ENABLE);
-
-}
-
-/**
- * Declare the pins used for UART
+ * Define the pins used for UART
  */
 void pinsel_uart3(void){
     PINSEL_CFG_Type PinCfg;
@@ -261,6 +119,46 @@ static void init_i2c(void)
 }
 
 /**
+ * Initialize Standard Private SSP Interrupt handler
+ */
+static void init_ssp(void)
+{
+	SSP_CFG_Type SSP_ConfigStruct;
+	PINSEL_CFG_Type PinCfg;
+
+	/*
+	 * Initialize SPI pin connect
+	 * P0.7 - SCK;
+	 * P0.8 - MISO
+	 * P0.9 - MOSI
+	 * P2.2 - SSEL - used as GPIO
+	 */
+	PinCfg.Funcnum = 2;
+	PinCfg.OpenDrain = 0;
+	PinCfg.Pinmode = 0;
+	PinCfg.Portnum = 0;
+	PinCfg.Pinnum = 7;
+	PINSEL_ConfigPin(&PinCfg);
+	PinCfg.Pinnum = 8;
+	PINSEL_ConfigPin(&PinCfg);
+	PinCfg.Pinnum = 9;
+	PINSEL_ConfigPin(&PinCfg);
+	PinCfg.Funcnum = 0;
+	PinCfg.Portnum = 2;
+	PinCfg.Pinnum = 2;
+	PINSEL_ConfigPin(&PinCfg);
+
+	SSP_ConfigStructInit(&SSP_ConfigStruct);
+
+	// Initialize SSP peripheral with parameter given in structure above
+	SSP_Init(LPC_SSP1, &SSP_ConfigStruct);
+
+	// Enable SSP peripheral
+	SSP_Cmd(LPC_SSP1, ENABLE);
+
+}
+
+/**
  * Initialization of GPIO
  */
 static void init_GPIO(void)
@@ -274,35 +172,10 @@ static void init_GPIO(void)
 	PinCfg.Pinnum = 31;
 	PINSEL_ConfigPin(&PinCfg);
 	GPIO_SetDir(1, 1<<31, 0);
-
-	//Initialize button sw3
-	PinCfg.Funcnum = 0;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Portnum = 2;
-	PinCfg.Pinnum = 10;
-	PINSEL_ConfigPin(&PinCfg);
-	GPIO_SetDir(2, 1 << 10, 0);
-
-	/* ---- Speaker ------> */
-	GPIO_SetDir(2, 1<<0, 1);
-	GPIO_SetDir(2, 1<<1, 1);
-
-	GPIO_SetDir(0, 1<<27, 1);
-	GPIO_SetDir(0, 1<<28, 1);
-	GPIO_SetDir(2, 1<<13, 1);
-
-	// Main tone signal : P0.26
-	GPIO_SetDir(0, 1<<26, 1);
-
-	GPIO_ClearValue(0, 1<<27); //LM4811-clk
-	GPIO_ClearValue(0, 1<<28); //LM4811-up/dn
-	GPIO_ClearValue(2, 1<<13); //LM4811-shutdn
-
 }
 
 /**
- * Method of Tick Handler
+ * Function of Tick Handler
  * Increase tick count by 1 every millisecond
  */
 void SysTick_Handler(void) {
@@ -310,7 +183,7 @@ void SysTick_Handler(void) {
 }
 
 /**
- * Method to get the tick count
+ * Function to get the tick count
  */
 uint32_t getTicks() {
     return msTicks;
@@ -320,7 +193,7 @@ uint32_t getTicks() {
  * Function to display 7 Seg
  */
 const char displayValues[] = "0123456789ABCDEF";
-void run7Seg(int *segCount, uint32_t *prevGetTicks){
+int run7Seg(int *segCount, uint32_t *prevGetTicks){
 	if(getTicks()-(*prevGetTicks) >= 1000){
 		*prevGetTicks = getTicks();
 		led7seg_setChar(displayValues[*segCount], FALSE);
@@ -328,7 +201,9 @@ void run7Seg(int *segCount, uint32_t *prevGetTicks){
 			*segCount = 0;
 		else
 			(*segCount)++;
+		return 1;
     }
+	return 0;
 }
 
 /**
@@ -350,55 +225,52 @@ void runBlinkRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour){
  */
 int main (void) {
 
-    // Setup SysTick Timer to interrupt at 1 msec intervals
-	if (SysTick_Config(SystemCoreClock / 1000)) {
+	/**
+	 * Setup SysTick Timer to interrupt at 1msec intervals
+	 */
+	if (SysTick_Config(SystemCoreClock / 1000))
 	    while (1);  // Capture error
-	}
 
-	char enterMonitor[] = "Entering MONITOR mode.\r\n";
-	int segCount = 0;
-
-    int32_t xoff = 0;
-    int32_t yoff = 0;
-    int32_t zoff = 0;
-    int32_t movement = 0;
-
-    int8_t x = 0;
-    int8_t y = 0;
-    int8_t z = 0;
-    uint8_t dir = 1;
-    uint8_t clearScreen = 0;
-    uint8_t firstTimeEnterMonitor = 0;
-
-    uint8_t sw4 = 0;
-    uint32_t sw4PressTicks = getTicks();
-
-    uint8_t RGB_RED_AND_BLUE = 0x03;
-
+	/**
+	 * Initialization of Devices
+	 */
     init_i2c();
     init_ssp();
     init_GPIO();
     init_uart();
-
     pca9532_init();
     joystick_init();
     oled_init();
     rgb_init();
-
-    //accelerometer
     acc_init();
-
-    //light sensor
     light_enable();
-
-    //temp sensor
     temp_init(getTicks);
-
-    // 7 Seg
     led7seg_init();
-    uint32_t prevGetTicks = getTicks();
-    uint32_t prevGetFlicker = getTicks();
-    int flag = 0;
+
+	/**
+	 * Initialize OLED
+	 */
+	char OLED_TEMPERATURE[15];
+	char OLED_LIGHT[15];
+	char OLED_X[15];
+	char OLED_Y[15];
+	char OLED_Z[15];
+	uint8_t clearScreen = 0;
+	oled_clearScreen(OLED_COLOR_BLACK);
+
+	/**
+	 * Initialization of Accelerometer Variables
+	 */
+    int32_t xoff = 0;
+    int32_t yoff = 0;
+    int32_t zoff = 0;
+    int8_t x = 0;
+    int8_t y = 0;
+    int8_t z = 0;
+    int8_t prevX = 0;
+    int8_t prevY = 0;
+    int8_t prevZ = 0;
+    int32_t movement = 0;
 
     /*
      * Assume base board in zero-g position when reading first value.
@@ -408,25 +280,41 @@ int main (void) {
     yoff = 0-y;
     zoff = 0-z;
 
-    /* ---- Speaker ------> */
+	/**
+	 * Define Necessary variables required
+	 */
+	// UART
+	char enterMonitor[] = "Entering MONITOR mode.\r\n";
+	unsigned char result[100] = "";
+	uint8_t firstTimeEnterMonitor = 0;
+	int message = 0;
 
-    GPIO_SetDir(2, 1<<0, 1);
-    GPIO_SetDir(2, 1<<1, 1);
+	// Time
+    uint32_t prevGetTicks = getTicks();
+    uint32_t prevGetFlicker = getTicks();
 
-    GPIO_SetDir(0, 1<<27, 1);
-    GPIO_SetDir(0, 1<<28, 1);
-    GPIO_SetDir(2, 1<<13, 1);
-    GPIO_SetDir(0, 1<<26, 1);
+    // 7 Segment
+    int segCount = 0;
 
-    GPIO_ClearValue(0, 1<<27); //LM4811-clk
-    GPIO_ClearValue(0, 1<<28); //LM4811-up/dn
-    GPIO_ClearValue(2, 1<<13); //LM4811-shutdn
+    // Light and Temperature Values
+	uint32_t light = 0;
+	uint32_t temperature = 0;
+	int update = 0;
 
-    moveBar(1, dir);
-    oled_clearScreen(OLED_COLOR_BLACK);
+	// RGB
+    uint8_t RGB_RED_AND_BLUE = 0x03;
+    int onOrOff = 0;
+    int32_t warning = 0;
+
+    // SwitchButton 4
+    uint8_t sw4 = 0;
+    uint32_t sw4PressTicks = getTicks();
 
     while (1)
     {
+		/**
+		 * Switch button to determine the mode of the board
+		 */
     	sw4 = (GPIO_ReadValue(1) >> 31) & 0x01;
     	if((sw4 == 0) && (getTicks()- sw4PressTicks >= 500)){
     		sw4PressTicks = getTicks();
@@ -438,35 +326,31 @@ int main (void) {
     		}
     	}
 
+		/**
+		 * Configure the board to run according to the mode
+		 */
     	switch(mode){
     		/**
     		 * All Sensors are turned off, no readings are being made
     		 */
     		case MODE_STABLE:
     			if(clearScreen == 0){
-					/**
-					 * Turns the OLED Screen off
-					 */
+					// Turns the OLED Screen off
 					oled_clearScreen(OLED_COLOR_BLACK);
 
-					/**
-					 * Turns the OLED Screen off
-					 */
+					// Turns the OLED Screen off
 					led7seg_setChar(' ', FALSE);
 
-					/**
-					 * Reset the count of the 7 Seg
-					 */
+					// Reset the count of the 7 Seg
 					segCount = 0;
 
-					/**
-					 * Indicate that the screen is cleared
-					 */
+					// Ensure that RGB is off
+					rgb_setLeds(0);
+
+					// Indicate that the screen is cleared
 					clearScreen = 1;
 
-					/**
-					 * Flag to indicate entering monitor mode
-					 */
+					// Flag to indicate entering monitor mode
 					firstTimeEnterMonitor = 0;
     			}
 
@@ -502,57 +386,86 @@ int main (void) {
     	         * 7 Segment Display
     	         * Increases segCount after use
     	         */
-    	        run7Seg(&segCount,&prevGetTicks);
+    	        update = run7Seg(&segCount,&prevGetTicks);
 
-    	        /**
-    	         * OLED
-    	         * Values changes when 7Seg display 5,10,15
-    	         * segCount is 1 value higher as it is incremented by run7seg
-    	         */
-    	        if(segCount == 6 || segCount == 11 || segCount == 0){
-    	        	readSensors(&light, &temperature, &x, &y, &z);
-    	        	x = x + xoff;
-    				y = y + yoff;
-    				z = z + zoff;
-    				sprintf(OLED_TEMPERATURE, "Temp: %.1f", temperature/10.0);
-    				sprintf(OLED_LIGHT, "Light: %lu", light);
-    				sprintf(OLED_X, "X: %d", x);
-    				sprintf(OLED_Y, "y: %d", y);
-    				sprintf(OLED_Z, "z: %d", z);
-    				oled_putString(0,  0, (uint8_t*) "    MONITOR    ", OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-    				oled_putString(0, 10, (uint8_t*) OLED_TEMPERATURE, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-    				oled_putString(0, 20, (uint8_t*) OLED_LIGHT, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-    				oled_putString(0, 30, (uint8_t*) OLED_X, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-    				oled_putString(0, 40, (uint8_t*) OLED_Y, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-    				oled_putString(0, 50, (uint8_t*) OLED_Z, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+    	        if(update == 1){
+					/**
+					 * OLED
+					 * Values changes when 7Seg display 5,10,15
+					 * segCount is 1 value higher as it is incremented by run7seg
+					 */
+					if(segCount == 6 || segCount == 11 || segCount == 0){
+						readSensors(&light, &temperature, &x, &y, &z);
+						x = x + xoff;
+						y = y + yoff;
+						z = z + zoff;
+						sprintf(OLED_TEMPERATURE, "Temp: %-5.1f", temperature/10.0);
+						sprintf(OLED_LIGHT, "Light: %-5lu", light);
+						sprintf(OLED_X, "X: %-5d", x);
+						sprintf(OLED_Y, "y: %-5d", y);
+						sprintf(OLED_Z, "z: %-5d", z);
+						oled_putString(0,  0, (uint8_t*) "    MONITOR    ", OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+						oled_putString(0, 10, (uint8_t*) OLED_TEMPERATURE, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+						oled_putString(0, 20, (uint8_t*) OLED_LIGHT, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+						oled_putString(0, 30, (uint8_t*) OLED_X, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+						oled_putString(0, 40, (uint8_t*) OLED_Y, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+						oled_putString(0, 50, (uint8_t*) OLED_Z, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+					}
+
+					/**
+					 * Updates warnings every 15 seconds
+					 * segCount is 1 value higher as it is incremented by run7seg
+					 */
+					if(segCount == 0){
+						// Determine if there is movement
+						if(abs(x-prevX) > 15 || abs(y-prevY) > 15 || abs(z-prevZ) > 15)
+							movement = 1;
+						else
+							movement = 0;
+
+						// Store the accelerometer values
+						prevX = x;
+						prevY = y;
+						prevZ = z;
+
+						// Issue Warning accordingly
+						if(temperature/10.0 > TEMP_HIGH_WARNING && movement == 1 && light < LIGHT_LOW_WARNING){
+							warning = 3;
+						} else if (temperature/10.0 > TEMP_HIGH_WARNING){
+							warning = 2;
+						} else if (movement == 1 && light < LIGHT_LOW_WARNING){
+							warning = 1;
+						} else{
+							warning = 0;
+						}
+					}
+
+					/**
+					 * UART
+					 * Values changes when 7Seg display 15
+					 * segCount is 1 value higher as it is incremented by run7seg
+					 */
+					if(segCount == 0){
+						sprintf(result, "%03d_-_T%-5.1f_L%-5lu_AX%-5d_AY%-5d_AZ%-5d\r\n", message, temperature / 10.0, light, x, y, z);
+						UART_Send(LPC_UART3, (uint8_t *) result, strlen(result), BLOCKING);
+						message++;
+					}
     	        }
 
-    	        /**
-    	         * Check to see if the LPC is returning any warnings
-    	         * High Temperature: 		Blink Red
-    	         * Movement and Low Light: 	Blink Blue
-    	         * Do note that both can occur at the same time
-    	         */
-    	        movement = xoff + yoff + zoff;
-    	        if(temperature/10.0 > TEMP_HIGH_WARNING && movement > 0 && light < LIGHT_LOW_WARNING){
-    	        	runBlinkRGB(&flag, &prevGetFlicker,RGB_RED_AND_BLUE);
-    	        } else if (temperature/10.0 > TEMP_HIGH_WARNING){
-    	        	runBlinkRGB(&flag,&prevGetFlicker,RGB_RED);
-    	        } else if (movement && light < LIGHT_LOW_WARNING){
-    	        	runBlinkRGB(&flag,&prevGetFlicker,RGB_BLUE);
-    	        } else{
-
-    	        }
-
-    	        /**
-    	         * UART
-    	         * Values changes when 7Seg display 15
-    	         * segCount is 1 value higher as it is incremented by run7seg
-    	         */
-    	        if(segCount == 0){
-    				sprintf(result, "L%d_T%.1f_AX%d_AY%d_AZ%d\r", light, temperature / 10.0, x, y, z);
-    				UART_Send(LPC_UART3, (uint8_t *) result, strlen(result), BLOCKING);
-    	        }
+				/**
+				 * Run Warnings
+				 * High Temperature: 		Blink Red
+				 * Movement and Low Light: 	Blink Blue
+				 * Do note that both can occur at the same time
+				 */
+				if(warning == 3)
+					runBlinkRGB(&onOrOff, &prevGetFlicker,RGB_RED_AND_BLUE);
+				else if(warning == 2)
+					runBlinkRGB(&onOrOff,&prevGetFlicker,RGB_RED);
+				else if(warning == 1)
+					runBlinkRGB(&onOrOff,&prevGetFlicker,RGB_BLUE);
+				else
+					rgb_setLeds(0);
 
     		break;
     	}
