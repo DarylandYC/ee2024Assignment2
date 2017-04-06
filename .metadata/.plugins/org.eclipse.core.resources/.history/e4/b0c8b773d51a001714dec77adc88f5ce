@@ -193,7 +193,8 @@ static void init_GPIO(void)
 	PINSEL_ConfigPin(&PinCfg);
 	GPIO_SetDir(1, 1<<31, 0);
 
-	//initialize light interrupt configuration
+	//initialize iight interrupt configuration
+	PINSEL_CFG_Type PinCfg;
 	PinCfg.Funcnum = 0;
 	PinCfg.OpenDrain = 0;
 	PinCfg.Pinmode = 0;
@@ -338,8 +339,8 @@ int main (void) {
 
     //initializing light interrupt
     light_setRange(LIGHT_RANGE_4000);
-	light_setLoThreshold(lightLowLimit);
-	light_setHiThreshold(lightHighLimit);
+	light_setLoThreshold(lightLoLimit);
+	light_setHiThreshold(lightHiLimit);
 	light_setIrqInCycles(LIGHT_CYCLE_1);
 	light_clearIrqStatus();
 
