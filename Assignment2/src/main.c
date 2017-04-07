@@ -41,6 +41,21 @@
 #define LIGHT_LOW_WARNING 50
 #define TEMP_HIGH_WARNING 26
 
+#define DARK_LOWERLIMIT 50
+#define DARK_UPPERLIMIT 3891
+#define LIGHT_LOWERLIMIT 0
+#define LIGHT_UPPERLIMIT 50
+
+
+/**
+ * Light interrupt Limits
+ */
+uint32_t lightLowLimit = DARK_LOWERLIMIT;
+uint32_t lightHighLimit = DARK_UPPERLIMIT;
+
+int lightFlag = 0;
+int prevLightFlag = 0;
+
 /**
  * Define the two different types of mode
  */
@@ -48,6 +63,17 @@ typedef enum{
 	MODE_STABLE, MODE_MONITOR
 } system_mode;
 
+/**
+ * Every time the GPIO interrupts are fired (regardless of which pin), this subroutine is called.
+ * ISR Implementation
+ */
+void EINT3_IRQHandler (void){
+	//light interrupt
+	if ((LPC_GPIOINT->IO2IntStatF >> 5) & 0x1) {
+		lightFlag = !lightFlag;
+		LPC_GPIOINT->IO2IntClr = 1 << 5;
+	}
+}
 /**
  * Initialize Variables
  */
@@ -221,6 +247,22 @@ void runBlinkRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour){
 }
 
 /**
+ * Function to flip the limits of the Light Sensor
+ */
+void flipLightLimits(){
+	if(lightFlag == 1){
+		lightLowLimit = LIGHT_LOWERLIMIT;
+		lightHighLimit = LIGHT_UPPERLIMIT;
+	} else {
+		lightLowLimit = DARK_LOWERLIMIT;
+		lightHighLimit = DARK_UPPERLIMIT;
+	}
+	light_setLoThreshold(lightLowLimit);
+	light_setHiThreshold(lightHighLimit);
+	light_clearIrqStatus();
+}
+
+/**
  * Main Function
  */
 int main (void) {
@@ -306,6 +348,19 @@ int main (void) {
     int onOrOff = 0;
     int32_t warning = 0;
 
+    //initializing light interrupt
+    light_setRange(LIGHT_RANGE_4000);
+	light_setLoThreshold(lightLowLimit);
+	light_setHiThreshold(lightHighLimit);
+	light_setIrqInCycles(LIGHT_CYCLE_1);
+	light_clearIrqStatus();
+
+	LPC_GPIOINT->IO2IntClr = 1 << 5;
+	LPC_GPIOINT->IO2IntEnF |= 1 << 5;
+
+	NVIC_ClearPendingIRQ(EINT3_IRQn);
+	NVIC_EnableIRQ(EINT3_IRQn);
+
     // SwitchButton 4
     uint8_t sw4 = 0;
     uint32_t sw4PressTicks = getTicks();
@@ -367,7 +422,6 @@ int main (void) {
     		 * 	7) Blinking Lights
     		 */
     		case MODE_MONITOR:
-
     	        /**
     	         * Check to see if this is the first time entering monitor mode
     	         */
@@ -381,6 +435,21 @@ int main (void) {
 					// Flag to set clearScreen when change mode
 					clearScreen = 0;
     			}
+
+				/**
+				 * Run Warnings
+				 * High Temperature: 		Blink Red
+				 * Movement and Low Light: 	Blink Blue
+				 * Do note that both can occur at the same time
+				 */
+				if(warning == 3)
+					runBlinkRGB(&onOrOff, &prevGetFlicker,RGB_RED_AND_BLUE);
+				else if(warning == 2)
+					runBlinkRGB(&onOrOff,&prevGetFlicker,RGB_RED);
+				else if(warning == 1)
+					runBlinkRGB(&onOrOff,&prevGetFlicker,RGB_BLUE);
+				else
+					rgb_setLeds(0);
 
     	        /**
     	         * 7 Segment Display
@@ -427,17 +496,6 @@ int main (void) {
 						prevX = x;
 						prevY = y;
 						prevZ = z;
-
-						// Issue Warning accordingly
-						if(temperature/10.0 > TEMP_HIGH_WARNING && movement == 1 && light < LIGHT_LOW_WARNING){
-							warning = 3;
-						} else if (temperature/10.0 > TEMP_HIGH_WARNING){
-							warning = 2;
-						} else if (movement == 1 && light < LIGHT_LOW_WARNING){
-							warning = 1;
-						} else{
-							warning = 0;
-						}
 					}
 
 					/**
@@ -450,22 +508,21 @@ int main (void) {
 						UART_Send(LPC_UART3, (uint8_t *) result, strlen(result), BLOCKING);
 						message++;
 					}
+					// Issue Warning accordingly
+					if(temperature/10.0 > TEMP_HIGH_WARNING && movement == 1 && lightFlag == 1){
+						warning = 3;
+					} else if (temperature/10.0 > TEMP_HIGH_WARNING){
+						warning = 2;
+					} else if (lightFlag == 1){
+						warning = 1;
+					} else{
+						warning = 0;
+					}
     	        }
-
-				/**
-				 * Run Warnings
-				 * High Temperature: 		Blink Red
-				 * Movement and Low Light: 	Blink Blue
-				 * Do note that both can occur at the same time
-				 */
-				if(warning == 3)
-					runBlinkRGB(&onOrOff, &prevGetFlicker,RGB_RED_AND_BLUE);
-				else if(warning == 2)
-					runBlinkRGB(&onOrOff,&prevGetFlicker,RGB_RED);
-				else if(warning == 1)
-					runBlinkRGB(&onOrOff,&prevGetFlicker,RGB_BLUE);
-				else
-					rgb_setLeds(0);
+    	        if(prevLightFlag != lightFlag){
+    	        	flipLightLimits();
+    	        	prevLightFlag = lightFlag;
+    	        }
 
     		break;
     	}
