@@ -2598,3 +2598,32 @@ java.io.FileNotFoundException: C:\Users\Daryl\Desktop\Assignment2\Assignment2\De
 !MESSAGE Not connected to emulator.
 !SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-06 23:09:36.374
 !MESSAGE (crt_emu_cm3_nxp) terminating due to loss of debug control
+
+!ENTRY com.crt.log 1 0 2017-04-06 23:56:34.833
+!MESSAGE Drivers loaded in 3751 milliseconds
+
+!ENTRY com.crt.dsfdebug 4 0 2017-04-07 00:24:30.819
+!MESSAGE 16: Target error from status-poll
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-07 00:24:30.819
+!MESSAGE 16: Target error from status-poll
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-07 00:24:30.819
+!MESSAGE IO Error - cable disconnected?
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-07 00:24:30.819
+!MESSAGE Not connected to emulator.
+
+!ENTRY com.crt.dsfdebug 4 0 2017-04-07 00:29:30.231
+!MESSAGE (crt_emu_cm3_nxp) terminating due to loss of debug control
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-07 00:29:30.231
+!MESSAGE (crt_emu_cm3_nxp) terminating due to loss of debug control
+
+!ENTRY com.crt.log 1 0 2017-04-07 00:30:49.777
+!MESSAGE Drivers loaded in 4524 milliseconds
+!SESSION 2017-04-07 15:20:28.924 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_SG
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY com.crt.log 1 0 2017-04-07 15:23:33.035
+!MESSAGE Drivers loaded in 4332 milliseconds

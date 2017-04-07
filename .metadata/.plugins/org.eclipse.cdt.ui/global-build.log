@@ -4022,3 +4022,642 @@ make: Nothing to be done for `all'.
 22:58:21 **** Incremental Build of configuration Debug for project Assignment2 ****
 make all 
 make: Nothing to be done for `all'.
+23:55:29 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+23:55:39 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+23:55:45 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+23:56:06 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:86:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:440:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:440:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:440:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:493:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:494:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  37468	   2260	    904	  40632	   9eb8	Assignment2.axf
+ 
+23:57:22 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+23:57:26 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+23:57:29 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+23:57:45 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:86:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:440:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:440:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:440:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:493:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:494:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  37404	   2260	    904	  40568	   9e78	Assignment2.axf
+ 
+00:02:27 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+00:02:32 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+00:02:36 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+00:02:52 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:86:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:440:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:440:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:440:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:493:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:494:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  37468	   2260	    904	  40632	   9eb8	Assignment2.axf
+ 
+00:12:36 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+00:12:39 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+00:12:45 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+00:13:01 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:88:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:88:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:88:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:443:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:85:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:443:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:85:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:443:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:85:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:496:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:497:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  37500	   2260	    908	  40668	   9edc	Assignment2.axf
+ 
+00:20:11 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+00:20:17 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+00:20:23 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+00:20:31 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+00:20:37 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+00:20:39 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+00:21:00 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:87:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:87:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:87:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:442:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:84:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:442:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:84:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:442:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:84:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:495:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:496:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  37468	   2260	    908	  40636	   9ebc	Assignment2.axf
+ 
+00:23:08 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+00:23:13 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+00:23:16 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+00:23:36 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+make: Nothing to be done for `all'.
+00:30:06 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+00:30:10 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+00:30:13 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+00:30:28 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:87:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:87:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:87:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:442:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:84:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:442:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:84:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:442:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:84:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:495:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:496:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  37460	   2260	    908	  40628	   9eb4	Assignment2.axf
+ 
+15:22:45 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+15:22:52 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+15:22:58 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+15:23:14 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+make: Nothing to be done for `all'.
+15:56:28 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+15:56:33 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+15:56:37 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+15:56:52 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:86:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:442:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:442:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:442:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:497:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:498:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  37468	   2260	    908	  40636	   9ebc	Assignment2.axf
+ 
+15:58:58 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+15:59:02 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+15:59:07 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+15:59:21 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:86:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:441:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:441:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:441:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:496:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:497:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  37468	   2260	    908	  40636	   9ebc	Assignment2.axf
+ 
+16:35:26 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+16:36:21 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+16:36:33 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+16:36:40 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+16:36:45 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+16:37:08 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:86:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:441:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:441:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:441:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:496:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:497:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  37444	   2260	    908	  40612	   9ea4	Assignment2.axf
+ 
+16:40:20 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+Command canceled
+16:40:30 **** Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+16:40:35 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+16:40:41 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+16:41:00 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:86:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:441:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:441:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:441:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:496:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:497:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  37452	   2260	    908	  40620	   9eac	Assignment2.axf
+ 
+16:43:07 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+16:43:13 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+16:43:17 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+16:43:36 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+make: Nothing to be done for `all'.
+16:46:39 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+16:46:44 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+16:46:49 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+16:47:05 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:86:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:441:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:441:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:441:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:496:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:497:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  37460	   2260	    908	  40628	   9eb4	Assignment2.axf
+ 
+16:52:10 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+16:52:16 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+16:52:20 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+16:52:36 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:86:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:86:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:456:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:456:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:456:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:83:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:511:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:512:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  37460	   2260	    908	  40628	   9eb4	Assignment2.axf
+ 
+16:55:52 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+16:55:57 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+16:56:01 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+16:56:19 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:85:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:85:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:85:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:455:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:82:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:455:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:82:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:455:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:82:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:510:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:511:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\Daryl\Desktop\Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\Daryl\Desktop\Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  37460	   2260	    904	  40624	   9eb0	Assignment2.axf
+ 
