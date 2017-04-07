@@ -412,8 +412,6 @@ int main (void) {
     		 */
     		case MODE_MONITOR:
 
-    			light_clearIrqStatus();
-
     	        /**
     	         * Check to see if this is the first time entering monitor mode
     	         */

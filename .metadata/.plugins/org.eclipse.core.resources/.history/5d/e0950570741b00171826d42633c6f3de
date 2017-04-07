@@ -193,13 +193,13 @@ static void init_GPIO(void)
 	GPIO_SetDir(1, 1<<31, 0);
 
 	//initialize light interrupt configuration
-	/*PinCfg.Funcnum = 0;
+	PinCfg.Funcnum = 0;
 	PinCfg.OpenDrain = 0;
 	PinCfg.Pinmode = 0;
 	PinCfg.Portnum = 2;
 	PinCfg.Pinnum = 5;
 	PINSEL_ConfigPin(&PinCfg);
-	GPIO_SetDir(2, 1<<5, 0);*/
+	GPIO_SetDir(2, 1<<5, 0);
 }
 
 /**
@@ -337,7 +337,7 @@ int main (void) {
 
     //initializing light interrupt
     light_setRange(LIGHT_RANGE_4000);
-	light_setLoThreshold(2000);
+	light_setLoThreshold(lightLowLimit);
 	light_setHiThreshold(lightHighLimit);
 	light_setIrqInCycles(LIGHT_CYCLE_1);
 	light_clearIrqStatus();
@@ -346,8 +346,6 @@ int main (void) {
 	LPC_GPIOINT->IO2IntClr = 1 << 5;
 	LPC_GPIOINT->IO2IntEnF |= 1 << 5;
 
-
-	NVIC_ClearPendingIRQ(EINT3_IRQn);
 	NVIC_EnableIRQ(EINT3_IRQn);
 
     // SwitchButton 4
@@ -411,7 +409,6 @@ int main (void) {
     		 * 	7) Blinking Lights
     		 */
     		case MODE_MONITOR:
-
     			light_clearIrqStatus();
 
     	        /**

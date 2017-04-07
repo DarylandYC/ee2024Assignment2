@@ -193,13 +193,13 @@ static void init_GPIO(void)
 	GPIO_SetDir(1, 1<<31, 0);
 
 	//initialize light interrupt configuration
-	/*PinCfg.Funcnum = 0;
+	PinCfg.Funcnum = 0;
 	PinCfg.OpenDrain = 0;
 	PinCfg.Pinmode = 0;
 	PinCfg.Portnum = 2;
 	PinCfg.Pinnum = 5;
 	PINSEL_ConfigPin(&PinCfg);
-	GPIO_SetDir(2, 1<<5, 0);*/
+	//GPIO_SetDir(2, 1<<5, 0);
 }
 
 /**
@@ -411,8 +411,6 @@ int main (void) {
     		 * 	7) Blinking Lights
     		 */
     		case MODE_MONITOR:
-
-    			light_clearIrqStatus();
 
     	        /**
     	         * Check to see if this is the first time entering monitor mode

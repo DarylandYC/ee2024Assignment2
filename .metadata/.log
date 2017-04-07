@@ -2627,3 +2627,12 @@ Command-line arguments:  -os win32 -ws win32 -arch x86
 
 !ENTRY com.crt.log 1 0 2017-04-07 15:23:33.035
 !MESSAGE Drivers loaded in 4332 milliseconds
+
+!ENTRY com.crt.dsfdebug 4 0 2017-04-07 17:47:24.085
+!MESSAGE 16: Target error from status-poll
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-07 17:47:24.085
+!MESSAGE 16: Target error from status-poll
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-07 17:47:24.085
+!MESSAGE IO Error - cable disconnected?
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-07 17:47:24.085
+!MESSAGE Not connected to emulator.
