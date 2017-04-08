@@ -55,6 +55,8 @@ uint32_t lightHighLimit = DARK_UPPERLIMIT;
 
 int lightFlag = 0;
 int prevLightFlag = 0;
+int oneSecondHasReached = 0;
+int oneThirdSecondsHasReached = 0;
 
 /**
  * Define the two different types of mode
@@ -74,6 +76,7 @@ void EINT3_IRQHandler (void){
 		LPC_GPIOINT->IO2IntClr = 1 << 5;
 	}
 }
+
 /**
  * Initialize Variables
  */
@@ -219,31 +222,19 @@ uint32_t getTicks() {
  * Function to display 7 Seg
  */
 const char displayValues[] = "0123456789ABCDEF";
-int run7Seg(int *segCount, uint32_t *prevGetTicks){
-	if(getTicks()-(*prevGetTicks) >= 1000){
-		*prevGetTicks = getTicks();
-		led7seg_setChar(displayValues[*segCount], FALSE);
-		if(*segCount == 15)
-			*segCount = 0;
-		else
-			(*segCount)++;
-		return 1;
-    }
-	return 0;
+void run7Seg(int *segCount){
+	led7seg_setChar(displayValues[*segCount], FALSE);
+	if(*segCount == 15)
+		*segCount = 0;
+	else
+		(*segCount)++;
 }
 
 /**
  * Function run the blinking of RGB
  */
-void runBlinkRGB(int *flag, uint32_t *prevGetFlicker, uint8_t colour){
-    if(getTicks() - *prevGetFlicker >= 333){
-    	*prevGetFlicker = getTicks();
-    	*flag = !(*flag);
-    	if(*flag == 1)
-    		rgb_setLeds(colour);
-    	else
-    		rgb_setLeds(0);
-    }
+void runBlinkRGB(uint8_t colour){
+	rgb_setLeds(colour);
 }
 
 /**
@@ -263,9 +254,88 @@ void flipLightLimits(){
 }
 
 /**
+ * Function to obtain the Prescalar value from the given timer Peripheral Clock Bit
+ * Credits given to: https://exploreembedded.com/wiki/LPC1768:_Timers
+ */
+unsigned int getPrescalar(uint8_t timerPeripheralClockBit){
+    unsigned int peripheralClock,prescalar;
+
+    // get the peripheral clock info for required timer
+    if(timerPeripheralClockBit < 10)
+    	peripheralClock = (LPC_SC->PCLKSEL0 >> timerPeripheralClockBit) & 0x03;
+    else
+    	peripheralClock = (LPC_SC->PCLKSEL1 >> timerPeripheralClockBit) & 0x03;
+
+    // Decode the bits to determine the peripheral clock
+    switch ( peripheralClock ){
+		case 0x00:
+			peripheralClock = SystemCoreClock/4;
+			break;
+
+		case 0x01:
+			peripheralClock = SystemCoreClock;
+			break;
+
+		case 0x02:
+			peripheralClock = SystemCoreClock/2;
+			break;
+
+		case 0x03:
+			peripheralClock = SystemCoreClock/8;
+			break;
+    }
+
+    // Prescalar for 1us (1000000Counts/sec)
+    prescalar = peripheralClock/1000000 - 1;
+
+    return prescalar;
+}
+
+/**
+ * Function to handle the Timer1 interrupt
+ * Credits given to: https://exploreembedded.com/wiki/LPC1768:_Timers
+ */
+void TIMER1_IRQHandler(void){
+    unsigned int isrMask;
+    isrMask = LPC_TIM1->IR;
+    LPC_TIM1->IR = isrMask;        /* Clear the Interrupt Bit */
+    oneSecondHasReached = 1;
+}
+
+/**
+ * Function to handle the Timer2 interrupt
+ * Credits given to: https://exploreembedded.com/wiki/LPC1768:_Timers
+ */
+void TIMER2_IRQHandler(void){
+    unsigned int isrMask;
+    isrMask = LPC_TIM2->IR;
+    LPC_TIM2->IR = isrMask;        /* Clear the Interrupt Bit */
+    oneThirdSecondsHasReached = 1;
+}
+
+/**
  * Main Function
  */
 int main (void) {
+	/**
+	 * Setup Timer1 to interrupt at 1 second intervals
+	 */
+	LPC_SC->PCONP |= (1 << 2);			// Power Up Timer 1
+	LPC_SC->PCLKSEL0 |= 0x01 << 4;
+    LPC_TIM1->MCR  = (1<<0) | (1<<1);	// Clear Timer Counter on Match Register 0 match and Generate Interrupt
+    LPC_TIM1->PR   = getPrescalar(4);	// Prescalar for 1us
+    LPC_TIM1->MR0  = 1000000;   		// Load timer value to generate 1s delay
+    LPC_TIM1->TCR  = (1 << 0);			// Start timer by setting the Counter Enable
+
+	/**
+	 * Setup Timer2 to interrupt at 5 second intervals
+	 */
+    LPC_SC->PCONP |= (1 << 22);			// Power Up Timer 2
+    LPC_SC->PCLKSEL1 |= 0x01 << 12;
+    LPC_TIM2->MCR  = (1<<0) | (1<<1);	// Clear Timer Counter on Match Register 0 match and Generate Interrupt
+    LPC_TIM2->PR   = getPrescalar(12);	// Prescalar for 1us
+    LPC_TIM2->MR0  = 333333;   		// Load timer value to generate 1s delay
+    LPC_TIM2->TCR  = (1 << 0);			// Start timer by setting the Counter Enable
 
 	/**
 	 * Setup SysTick Timer to interrupt at 1msec intervals
@@ -331,21 +401,16 @@ int main (void) {
 	uint8_t firstTimeEnterMonitor = 0;
 	int message = 0;
 
-	// Time
-    uint32_t prevGetTicks = getTicks();
-    uint32_t prevGetFlicker = getTicks();
-
     // 7 Segment
     int segCount = 0;
 
     // Light and Temperature Values
 	uint32_t light = 0;
 	uint32_t temperature = 0;
-	int update = 0;
 
 	// RGB
     uint8_t RGB_RED_AND_BLUE = 0x03;
-    int onOrOff = 0;
+    int onOrOff = 1;
     int32_t warning = 0;
 
     //initializing light interrupt
@@ -407,6 +472,10 @@ int main (void) {
 
 					// Flag to indicate entering monitor mode
 					firstTimeEnterMonitor = 0;
+
+					// Disable Timer Interrupts
+				    NVIC_DisableIRQ(TIMER1_IRQn);
+				    NVIC_DisableIRQ(TIMER2_IRQn);
     			}
 
     		break;
@@ -426,6 +495,10 @@ int main (void) {
     	         * Check to see if this is the first time entering monitor mode
     	         */
     			if(firstTimeEnterMonitor == 0){
+    				// Enable Timer Interrupt
+    				NVIC_EnableIRQ(TIMER1_IRQn);
+    				NVIC_EnableIRQ(TIMER2_IRQn);
+
     				// Send message to UART
     				UART_Send(LPC_UART3, (uint8_t *) enterMonitor, strlen(enterMonitor), BLOCKING);
 
@@ -442,28 +515,52 @@ int main (void) {
 				 * Movement and Low Light: 	Blink Blue
 				 * Do note that both can occur at the same time
 				 */
-				if(warning == 3)
-					runBlinkRGB(&onOrOff, &prevGetFlicker,RGB_RED_AND_BLUE);
-				else if(warning == 2)
-					runBlinkRGB(&onOrOff,&prevGetFlicker,RGB_RED);
-				else if(warning == 1)
-					runBlinkRGB(&onOrOff,&prevGetFlicker,RGB_BLUE);
-				else
-					rgb_setLeds(0);
+				if(oneThirdSecondsHasReached == 1){
+					if(onOrOff == 1){
+						switch(warning){
+							case 3:
+							rgb_setLeds(RGB_RED_AND_BLUE);
+							break;
 
-    	        /**
-    	         * 7 Segment Display
-    	         * Increases segCount after use
-    	         */
-    	        update = run7Seg(&segCount,&prevGetTicks);
+							case 2:
+							rgb_setLeds(RGB_RED);
+							break;
 
-    	        if(update == 1){
+							case 1:
+							rgb_setLeds(RGB_BLUE);
+							break;
+						}
+					} else {
+						rgb_setLeds(0);
+					}
+					onOrOff = !onOrOff;
+					oneThirdSecondsHasReached = 0;
+				}
+
+    	        if(oneSecondHasReached == 1){
+        	        /**
+        	         * 7 Segment Display
+        	         * Increases segCount after use
+        	         */
+    	        	run7Seg(&segCount);
+
+					// Issue Warning accordingly
+					if(temperature/10.0 > TEMP_HIGH_WARNING && movement == 1 && lightFlag == 1){
+						warning = 3;
+					} else if (temperature/10.0 > TEMP_HIGH_WARNING){
+						warning = 2;
+					} else if (lightFlag == 1){
+						warning = 1;
+					} else{
+						warning = 0;
+					}
+
 					/**
 					 * OLED
 					 * Values changes when 7Seg display 5,10,15
 					 * segCount is 1 value higher as it is incremented by run7seg
 					 */
-					if(segCount == 6 || segCount == 11 || segCount == 0){
+    	        	if(segCount == 6 || segCount == 11 || segCount == 0){
 						readSensors(&light, &temperature, &x, &y, &z);
 						x = x + xoff;
 						y = y + yoff;
@@ -479,7 +576,7 @@ int main (void) {
 						oled_putString(0, 30, (uint8_t*) OLED_X, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
 						oled_putString(0, 40, (uint8_t*) OLED_Y, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
 						oled_putString(0, 50, (uint8_t*) OLED_Z, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-					}
+    	        	}
 
 					/**
 					 * Updates warnings every 15 seconds
@@ -508,17 +605,9 @@ int main (void) {
 						UART_Send(LPC_UART3, (uint8_t *) result, strlen(result), BLOCKING);
 						message++;
 					}
-					// Issue Warning accordingly
-					if(temperature/10.0 > TEMP_HIGH_WARNING && movement == 1 && lightFlag == 1){
-						warning = 3;
-					} else if (temperature/10.0 > TEMP_HIGH_WARNING){
-						warning = 2;
-					} else if (lightFlag == 1){
-						warning = 1;
-					} else{
-						warning = 0;
-					}
+    	        	oneSecondHasReached = 0;
     	        }
+
     	        if(prevLightFlag != lightFlag){
     	        	flipLightLimits();
     	        	prevLightFlag = lightFlag;
