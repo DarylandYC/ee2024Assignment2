@@ -3159,3 +3159,65 @@ java.io.FileNotFoundException: C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_
 	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:704)
 	at com.crt.ctrlcenter.launch.BuildLaunchUtils$2.run(Unknown Source)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY com.crt.dsfdebug 4 0 2017-04-09 20:57:30.389
+!MESSAGE 16: Target error from status-poll
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-09 20:57:30.389
+!MESSAGE 16: Target error from status-poll
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-09 20:57:30.389
+!MESSAGE Not connected to emulator.
+
+!ENTRY com.crt.log 1 0 2017-04-09 20:58:28.287
+!MESSAGE Drivers loaded in 2481 milliseconds
+
+!ENTRY com.crt.dsfdebug 4 0 2017-04-09 21:03:40.532
+!MESSAGE 16: Target error from status-poll
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-09 21:03:40.532
+!MESSAGE 16: Target error from status-poll
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-09 21:03:40.532
+!MESSAGE Not connected to emulator.
+
+!ENTRY com.crt.log 1 0 2017-04-09 21:04:05.040
+!MESSAGE Drivers loaded in 2468 milliseconds
+
+!ENTRY com.crt.dsfdebug 4 0 2017-04-09 21:05:16.389
+!MESSAGE (crt_emu_cm3_nxp) terminating due to loss of debug control
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-09 21:05:16.389
+!MESSAGE (crt_emu_cm3_nxp) terminating due to loss of debug control
+
+!ENTRY com.crt.dsfdebug 4 0 2017-04-09 21:05:16.431
+!MESSAGE (crt_emu_cm3_nxp) terminating due to loss of debug control
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-09 21:05:16.431
+!MESSAGE (crt_emu_cm3_nxp) terminating due to loss of debug control
+
+!ENTRY com.crt.dsfdebug 4 0 2017-04-09 21:05:16.470
+!MESSAGE (crt_emu_cm3_nxp) terminating due to loss of debug control
+!SUBENTRY 1 com.crt.dsfdebug 4 0 2017-04-09 21:05:16.470
+!MESSAGE (crt_emu_cm3_nxp) terminating due to loss of debug control
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 104 2017-04-09 21:28:46.699
+!MESSAGE Program file does not exist
+!STACK 0
+java.io.FileNotFoundException: C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Assignment2\Debug\Assignment2.axf not found
+	at org.eclipse.cdt.dsf.gdb.launching.LaunchUtils.verifyProgramPath(LaunchUtils.java:124)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.checkBinaryDetails(GdbLaunchDelegate.java:286)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:143)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:106)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:94)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:855)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:704)
+	at com.crt.ctrlcenter.launch.BuildLaunchUtils$2.run(Unknown Source)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 104 2017-04-09 21:28:46.700
+!MESSAGE C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Assignment2\Debug\Assignment2.axf not found
+!STACK 0
+java.io.FileNotFoundException: C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Assignment2\Debug\Assignment2.axf not found
+	at org.eclipse.cdt.dsf.gdb.launching.LaunchUtils.verifyProgramPath(LaunchUtils.java:124)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.checkBinaryDetails(GdbLaunchDelegate.java:286)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:143)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:106)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:94)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:855)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:704)
+	at com.crt.ctrlcenter.launch.BuildLaunchUtils$2.run(Unknown Source)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)

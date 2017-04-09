@@ -41,10 +41,10 @@
 #define LIGHT_LOW_WARNING 50
 #define TEMP_HIGH_WARNING 26
 
-uint32_t interruptDarkLowerLimit = LIGHT_LOW_WARNING;
-uint32_t interruptDarkUpperLimit = 3891;
-uint32_t interruptLightLowerLimit = 0;
-uint32_t interruptLightUpperLimit = LIGHT_LOW_WARNING;
+const uint32_t interruptDarkLowerLimit = LIGHT_LOW_WARNING;
+const uint32_t interruptDarkUpperLimit = 3891;
+const uint32_t interruptLightLowerLimit = 0;
+const uint32_t interruptLightUpperLimit = LIGHT_LOW_WARNING;
 
 /**
  * Define the two different types of mode
@@ -59,7 +59,7 @@ typedef enum{
 
 /***** Initialize Variables *****/
 // System
-volatile system_mode mode;
+volatile system_mode mode = MODE_STABLE;
 volatile warning_issued warning;
 uint32_t msTicks = 0;
 uint8_t isFirstTimeEnterStable = 1;
@@ -97,7 +97,7 @@ int32_t zoff = 0;
 int8_t x = 0;
 int8_t y = 0;
 int8_t z = 0;
-int32_t movement = 0;
+int isThereMovement = 0;
 
 // UART
 const char messageEnterMonitor[] = "Entering MONITOR mode.\r\n";
@@ -270,14 +270,11 @@ void init_lightInterrupt(){
 	light_setHiThreshold(interruptDarkUpperLimit);
 	light_setIrqInCycles(LIGHT_CYCLE_1);
 	light_clearIrqStatus();
-
 	LPC_GPIOINT->IO2IntClr = 1 << 5;
 	LPC_GPIOINT->IO2IntEnF |= 1 << 5;
 
 	NVIC_ClearPendingIRQ(EINT3_IRQn);
 }
-
-
 
 /**
  * Function of Tick Handler
@@ -297,7 +294,7 @@ uint32_t getTicks() {
 /**
  * Function to display 7 Seg
  */
-void run7Seg(){
+void change7Seg(){
 	led7seg_setChar(displayValues[segCount], FALSE);
 	if(segCount == 15)
 		segCount = 0;
@@ -424,12 +421,25 @@ void setAccelerometerAtZeroG(){
     zoff = 0-z;
 }
 
+void disableAllInterrupts(){
+	light_setLoThreshold(interruptDarkLowerLimit);
+	light_setHiThreshold(interruptDarkUpperLimit);
+    NVIC_DisableIRQ(TIMER1_IRQn);
+    NVIC_DisableIRQ(TIMER2_IRQn);
+    NVIC_DisableIRQ(EINT3_IRQn);
+    lightLowWarning = 0;
+    isThereMovement = 0;
+}
+
 /**
  * Turn off all operations
  * Note: Interrupts are also disabled
  */
 void turnOffAllOperations(){
 	if(isFirstTimeEnterStable){
+		// Disable Interrupts
+		disableAllInterrupts();
+
 		// Turns the OLED Screen off
 		oled_clearScreen(OLED_COLOR_BLACK);
 
@@ -442,16 +452,15 @@ void turnOffAllOperations(){
 		// Ensure that RGB is off
 		rgb_setLeds(0);
 
-		// Disable Interrupts
-	    NVIC_DisableIRQ(TIMER1_IRQn);
-	    NVIC_DisableIRQ(TIMER2_IRQn);
-	    NVIC_DisableIRQ(EINT3_IRQn);
+		// Set Warning to none
+		warning = NONE;
 
 		// Indicate that the screen is cleared
 	    isFirstTimeEnterStable = 0;
 
 		// Change the flag to display monitor mode at UART
 		isFirstTimeEnterMonitor = 1;
+
 	}
 }
 
@@ -581,10 +590,9 @@ void displayResultsOnUART(){
 void EINT3_IRQHandler (void){
 	// Change the flag when interrupt occurs
 	if ((LPC_GPIOINT->IO2IntStatF >> 5) & 0x1) {
+		LPC_GPIOINT->IO2IntClr = 1 << 5;
 		lightLowWarning = !lightLowWarning;
 		flipLightLimits();
-		printf("Light Interrupt %d \n", lightLowWarning);
-		LPC_GPIOINT->IO2IntClr = 1 << 5;
 	}
 }
 
@@ -596,7 +604,7 @@ void TIMER1_IRQHandler(void){
     unsigned int isrMask;
     isrMask = LPC_TIM1->IR;
     LPC_TIM1->IR = isrMask;		// Clear the Interrupt Bit
-	run7Seg();					// Change the 7 Segment
+	change7Seg();				// Change the 7 Segment
 	oneSecondHasReached = 1;	// Change Flag
 }
 
