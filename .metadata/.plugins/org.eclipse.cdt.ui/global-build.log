@@ -5317,3 +5317,1623 @@ arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.ax
    text	   data	    bss	    dec	    hex	filename
   38028	   2276	    920	  41224	   a108	Assignment2.axf
  
+13:18:05 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+13:18:07 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+13:18:08 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+13:18:14 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'TIMER1_IRQHandler':
+../src/main.c:100:2: warning: implicit declaration of function 'run7Seg' [-Wimplicit-function-declaration]
+../src/main.c: In function 'TIMER2_IRQHandler':
+../src/main.c:112:5: warning: implicit declaration of function 'runWarning' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:121:6: warning: conflicting types for 'runWarning' [enabled by default]
+../src/main.c:112:5: note: previous implicit declaration of 'runWarning' was here
+../src/main.c: In function 'readSensors':
+../src/main.c:151:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:151:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:151:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: At top level:
+../src/main.c:280:6: warning: conflicting types for 'run7Seg' [enabled by default]
+../src/main.c:100:2: note: previous implicit declaration of 'run7Seg' was here
+../src/main.c: In function 'main':
+../src/main.c:558:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:148:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:558:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:148:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:558:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:148:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:598:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:599:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c:418:13: warning: variable 'movement' set but not used [-Wunused-but-set-variable]
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38108	   2276	    920	  41304	   a158	Assignment2.axf
+ 
+13:20:17 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+13:20:18 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+13:20:20 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+13:20:25 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:116:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:116:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:116:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:558:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:558:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:558:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:598:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:599:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c:418:13: warning: variable 'movement' set but not used [-Wunused-but-set-variable]
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38100	   2276	    920	  41296	   a150	Assignment2.axf
+ 
+13:22:43 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+13:22:45 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+13:22:46 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+13:22:53 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:116:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:116:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:116:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:556:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:556:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:556:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:596:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:597:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c:418:13: warning: variable 'movement' set but not used [-Wunused-but-set-variable]
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38076	   2276	    920	  41272	   a138	Assignment2.axf
+ 
+13:23:47 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+13:23:48 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+13:23:50 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+13:23:56 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:116:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:116:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:116:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:556:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:556:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:556:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:596:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:597:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c:418:13: warning: variable 'movement' set but not used [-Wunused-but-set-variable]
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38092	   2276	    920	  41288	   a148	Assignment2.axf
+ 
+13:26:40 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+13:26:41 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+13:26:43 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+13:26:49 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:116:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:116:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:116:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:559:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:559:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:559:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:599:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:600:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c:418:13: warning: variable 'movement' set but not used [-Wunused-but-set-variable]
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38116	   2276	    920	  41312	   a160	Assignment2.axf
+ 
+13:28:00 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+13:28:02 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+13:28:03 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+13:28:10 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:116:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:116:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:116:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:560:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:560:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:560:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:600:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:601:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c:419:13: warning: variable 'movement' set but not used [-Wunused-but-set-variable]
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  47880	   2316	    976	  51172	   c7e4	Assignment2.axf
+ 
+13:29:31 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+13:29:33 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+13:29:34 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+13:29:40 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readSensors':
+../src/main.c:116:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:116:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:116:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'main':
+../src/main.c:560:7: warning: pointer targets in passing argument 3 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:560:7: warning: pointer targets in passing argument 4 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:560:7: warning: pointer targets in passing argument 5 of 'readSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:113:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:600:7: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:601:7: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c:419:13: warning: variable 'movement' set but not used [-Wunused-but-set-variable]
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  47880	   2316	    976	  51172	   c7e4	Assignment2.axf
+ 
+18:25:09 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+18:25:16 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+18:25:17 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+18:25:22 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:86:1: warning: implicit declaration of function 'getTicks' [-Wimplicit-function-declaration]
+../src/main.c:86:1: error: initializer element is not constant
+../src/main.c: In function 'runWarning':
+../src/main.c:126:3: warning: enumeration value 'MOVEMENT_IN_LOW_LIGHT' not handled in switch [-Wswitch]
+../src/main.c: In function 'readAllSensors':
+../src/main.c:154:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:154:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:154:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'init_timer1Interrupt':
+../src/main.c:290:5: warning: implicit declaration of function 'getPrescalar' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:319:10: error: conflicting types for 'getTicks'
+../src/main.c:86:26: note: previous implicit declaration of 'getTicks' was here
+../src/main.c:367:14: error: conflicting types for 'getPrescalar'
+../src/main.c:290:22: note: previous implicit declaration of 'getPrescalar' was here
+../src/main.c: In function 'enableAllOperations':
+../src/main.c:476:2: error: 'firstTimeEnterMonitor' undeclared (first use in this function)
+../src/main.c:476:2: note: each undeclared identifier is reported only once for each function it appears in
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:486:2: warning: implicit declaration of function 'isThereMovement' [-Wimplicit-function-declaration]
+../src/main.c:486:6: warning: unused variable 'movement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:573:10: error: 'result' undeclared (first use in this function)
+../src/main.c:574:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c: In function 'main':
+../src/main.c:653:11: error: 'isfirstTimeEnterMonitor' undeclared (first use in this function)
+../src/main.c:661:7: warning: pointer targets in passing argument 3 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:151:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:661:7: warning: pointer targets in passing argument 4 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:151:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:661:7: warning: pointer targets in passing argument 5 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:151:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+make: *** [src/main.o] Error 1
+18:28:27 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+18:28:28 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+18:28:29 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+18:28:35 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:86:1: warning: implicit declaration of function 'getTicks' [-Wimplicit-function-declaration]
+../src/main.c:86:1: error: initializer element is not constant
+../src/main.c: In function 'runWarning':
+../src/main.c:126:3: warning: enumeration value 'MOVEMENT_IN_LOW_LIGHT' not handled in switch [-Wswitch]
+../src/main.c: In function 'readAllSensors':
+../src/main.c:154:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:154:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:154:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'init_timer1Interrupt':
+../src/main.c:290:5: warning: implicit declaration of function 'getPrescalar' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:319:10: error: conflicting types for 'getTicks'
+../src/main.c:86:26: note: previous implicit declaration of 'getTicks' was here
+../src/main.c:367:14: error: conflicting types for 'getPrescalar'
+../src/main.c:290:22: note: previous implicit declaration of 'getPrescalar' was here
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:486:2: warning: implicit declaration of function 'isThereMovement' [-Wimplicit-function-declaration]
+../src/main.c:486:6: warning: unused variable 'movement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:573:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:574:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c: In function 'main':
+../src/main.c:656:8: warning: implicit declaration of function 'isfirstTimeEnterMonitor' [-Wimplicit-function-declaration]
+../src/main.c:664:7: warning: pointer targets in passing argument 3 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:151:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:664:7: warning: pointer targets in passing argument 4 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:151:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:664:7: warning: pointer targets in passing argument 5 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:151:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+make: *** [src/main.o] Error 1
+18:29:14 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+18:29:15 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+18:29:16 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+18:29:22 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'runWarning':
+../src/main.c:126:3: warning: enumeration value 'MOVEMENT_IN_LOW_LIGHT' not handled in switch [-Wswitch]
+../src/main.c: In function 'readAllSensors':
+../src/main.c:154:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:154:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:154:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'init_timer1Interrupt':
+../src/main.c:290:5: warning: implicit declaration of function 'getPrescalar' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:367:14: error: conflicting types for 'getPrescalar'
+../src/main.c:290:22: note: previous implicit declaration of 'getPrescalar' was here
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:486:2: warning: implicit declaration of function 'isThereMovement' [-Wimplicit-function-declaration]
+../src/main.c:486:6: warning: unused variable 'movement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:573:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:574:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c: In function 'main':
+../src/main.c:664:7: warning: pointer targets in passing argument 3 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:151:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:664:7: warning: pointer targets in passing argument 4 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:151:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:664:7: warning: pointer targets in passing argument 5 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:151:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+make: *** [src/main.o] Error 1
+18:33:10 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+18:33:11 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+18:33:12 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+18:33:18 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readAllSensors':
+../src/main.c:158:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:158:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:158:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'init_timer1Interrupt':
+../src/main.c:294:5: warning: implicit declaration of function 'getPrescalar' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:371:14: error: conflicting types for 'getPrescalar'
+../src/main.c:294:22: note: previous implicit declaration of 'getPrescalar' was here
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:490:2: warning: implicit declaration of function 'isThereMovement' [-Wimplicit-function-declaration]
+../src/main.c:490:6: warning: unused variable 'movement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:577:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:578:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c: In function 'main':
+../src/main.c:668:7: warning: pointer targets in passing argument 3 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:668:7: warning: pointer targets in passing argument 4 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:668:7: warning: pointer targets in passing argument 5 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+make: *** [src/main.o] Error 1
+18:36:43 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+18:36:44 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+18:36:45 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+18:36:50 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readAllSensors':
+../src/main.c:158:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:158:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:158:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:492:2: warning: implicit declaration of function 'isThereMovement' [-Wimplicit-function-declaration]
+../src/main.c:492:6: warning: unused variable 'movement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:579:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:580:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c: In function 'main':
+../src/main.c:670:7: warning: pointer targets in passing argument 3 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:670:7: warning: pointer targets in passing argument 4 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:670:7: warning: pointer targets in passing argument 5 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38348	   2276	   1136	  41760	   a320	Assignment2.axf
+ 
+18:42:53 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+18:42:54 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+18:42:56 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+18:43:01 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readAllSensors':
+../src/main.c:158:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:158:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:158:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:487:2: warning: implicit declaration of function 'isThereMovement' [-Wimplicit-function-declaration]
+../src/main.c:487:6: warning: unused variable 'movement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:574:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:575:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c: In function 'main':
+../src/main.c:669:7: warning: pointer targets in passing argument 3 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:669:7: warning: pointer targets in passing argument 4 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:669:7: warning: pointer targets in passing argument 5 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38508	   2276	   1136	  41920	   a3c0	Assignment2.axf
+ 
+18:43:36 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+18:43:37 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+18:43:39 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+18:43:44 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+make: Nothing to be done for `all'.
+18:46:35 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+18:46:36 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+18:46:38 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+18:46:43 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readAllSensors':
+../src/main.c:158:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:158:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:158:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:487:2: warning: implicit declaration of function 'isThereMovement' [-Wimplicit-function-declaration]
+../src/main.c:487:6: warning: unused variable 'movement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:574:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:575:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c: In function 'main':
+../src/main.c:669:7: warning: pointer targets in passing argument 3 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:669:7: warning: pointer targets in passing argument 4 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:669:7: warning: pointer targets in passing argument 5 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38508	   2276	   1140	  41924	   a3c4	Assignment2.axf
+ 
+19:00:22 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:00:24 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:00:25 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:00:30 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readAllSensors':
+../src/main.c:158:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:158:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:158:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:487:2: warning: implicit declaration of function 'isThereMovement' [-Wimplicit-function-declaration]
+../src/main.c:487:6: warning: unused variable 'movement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:574:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:575:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c: In function 'main':
+../src/main.c:666:7: warning: pointer targets in passing argument 3 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:666:7: warning: pointer targets in passing argument 4 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:666:7: warning: pointer targets in passing argument 5 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:155:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38460	   2276	   1140	  41876	   a394	Assignment2.axf
+ 
+19:04:40 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:04:42 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:04:43 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:04:48 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readAllSensors':
+../src/main.c:157:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:157:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:157:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:487:2: warning: implicit declaration of function 'isThereMovement' [-Wimplicit-function-declaration]
+../src/main.c:487:6: warning: unused variable 'movement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:574:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:575:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c: In function 'main':
+../src/main.c:666:7: warning: pointer targets in passing argument 3 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:154:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:666:7: warning: pointer targets in passing argument 4 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:154:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+../src/main.c:666:7: warning: pointer targets in passing argument 5 of 'readAllSensors' differ in signedness [-Wpointer-sign]
+../src/main.c:154:6: note: expected 'uint8_t *' but argument is of type 'int8_t *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38468	   2276	   1136	  41880	   a398	Assignment2.axf
+ 
+19:07:14 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:07:15 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:07:16 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:07:22 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'readAllSensors':
+../src/main.c:157:2: warning: pointer targets in passing argument 1 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:157:2: warning: pointer targets in passing argument 2 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c:157:2: warning: pointer targets in passing argument 3 of 'acc_read' differ in signedness [-Wpointer-sign]
+C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc/acc.h:30:6: note: expected 'int8_t *' but argument is of type 'uint8_t *'
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:487:2: warning: implicit declaration of function 'isThereMovement' [-Wimplicit-function-declaration]
+../src/main.c:487:6: warning: unused variable 'movement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:574:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:575:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38508	   2276	   1136	  41920	   a3c0	Assignment2.axf
+ 
+19:08:59 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:09:00 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:09:01 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:09:06 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:487:2: warning: implicit declaration of function 'isThereMovement' [-Wimplicit-function-declaration]
+../src/main.c:487:6: warning: unused variable 'movement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:574:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:575:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38508	   2276	   1136	  41920	   a3c0	Assignment2.axf
+ 
+19:10:23 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:10:24 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:10:25 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:10:30 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:486:2: warning: implicit declaration of function 'isThereMovement' [-Wimplicit-function-declaration]
+../src/main.c:486:6: warning: unused variable 'movement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:573:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:574:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38500	   2276	   1136	  41912	   a3b8	Assignment2.axf
+ 
+19:26:17 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:26:20 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:26:21 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:26:26 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:488:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:488:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayValuesOnOLED':
+../src/main.c:515:2: warning: implicit declaration of function 'createStringsToDisplayOnOLED' [-Wimplicit-function-declaration]
+../src/main.c:516:2: warning: implicit declaration of function 'displayStringsOnOLED' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:522:6: warning: conflicting types for 'createStringsToDisplayOnOLED' [enabled by default]
+../src/main.c:515:2: note: previous implicit declaration of 'createStringsToDisplayOnOLED' was here
+../src/main.c:533:6: warning: conflicting types for 'displayStringsOnOLED' [enabled by default]
+../src/main.c:516:2: note: previous implicit declaration of 'displayStringsOnOLED' was here
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:580:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:581:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38436	   2276	   1132	  41844	   a374	Assignment2.axf
+ 
+19:35:13 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:35:14 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:35:15 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:35:20 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:45:16: error: redefinition of 'darkLowerLimit'
+../src/main.c:43:16: note: previous definition of 'darkLowerLimit' was here
+../src/main.c:46:16: error: redefinition of 'darkLowerLimit'
+../src/main.c:43:16: note: previous definition of 'darkLowerLimit' was here
+../src/main.c:68:1: error: initializer element is not constant
+../src/main.c:69:1: error: initializer element is not constant
+../src/main.c: In function 'flipLightLimits':
+../src/main.c:322:19: error: 'lightLowerLimit' undeclared (first use in this function)
+../src/main.c:322:19: note: each undeclared identifier is reported only once for each function it appears in
+../src/main.c:323:20: error: 'lightUpperLimit' undeclared (first use in this function)
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:488:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:488:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayValuesOnOLED':
+../src/main.c:515:2: warning: implicit declaration of function 'createStringsToDisplayOnOLED' [-Wimplicit-function-declaration]
+../src/main.c:516:2: warning: implicit declaration of function 'displayStringsOnOLED' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:522:6: warning: conflicting types for 'createStringsToDisplayOnOLED' [enabled by default]
+../src/main.c:515:2: note: previous implicit declaration of 'createStringsToDisplayOnOLED' was here
+../src/main.c:533:6: warning: conflicting types for 'displayStringsOnOLED' [enabled by default]
+../src/main.c:516:2: note: previous implicit declaration of 'displayStringsOnOLED' was here
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:580:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:581:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+make: *** [src/main.o] Error 1
+19:37:23 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:37:25 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:37:26 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:37:31 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:68:1: error: initializer element is not constant
+../src/main.c:69:10: error: redefinition of 'lightInterruptLowerLimit'
+../src/main.c:68:10: note: previous definition of 'lightInterruptLowerLimit' was here
+../src/main.c:69:1: error: initializer element is not constant
+../src/main.c: In function 'init_lightInterrupt':
+../src/main.c:271:23: error: 'lightInterruptHigherLimit' undeclared (first use in this function)
+../src/main.c:271:23: note: each undeclared identifier is reported only once for each function it appears in
+../src/main.c: In function 'flipLightLimits':
+../src/main.c:322:3: error: 'lightLowLimit' undeclared (first use in this function)
+../src/main.c:323:3: error: 'lightHighLimit' undeclared (first use in this function)
+../src/main.c: In function 'setLightLimits':
+../src/main.c:334:23: error: 'lightLowLimit' undeclared (first use in this function)
+../src/main.c:335:23: error: 'lightHighLimit' undeclared (first use in this function)
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:488:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:488:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayValuesOnOLED':
+../src/main.c:515:2: warning: implicit declaration of function 'createStringsToDisplayOnOLED' [-Wimplicit-function-declaration]
+../src/main.c:516:2: warning: implicit declaration of function 'displayStringsOnOLED' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:522:6: warning: conflicting types for 'createStringsToDisplayOnOLED' [enabled by default]
+../src/main.c:515:2: note: previous implicit declaration of 'createStringsToDisplayOnOLED' was here
+../src/main.c:533:6: warning: conflicting types for 'displayStringsOnOLED' [enabled by default]
+../src/main.c:516:2: note: previous implicit declaration of 'displayStringsOnOLED' was here
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:580:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:581:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+make: *** [src/main.o] Error 1
+19:38:08 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:38:09 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:38:10 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:38:16 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:68:1: error: initializer element is not constant
+../src/main.c:69:1: error: initializer element is not constant
+../src/main.c: In function 'flipLightLimits':
+../src/main.c:322:3: error: 'lightLowLimit' undeclared (first use in this function)
+../src/main.c:322:3: note: each undeclared identifier is reported only once for each function it appears in
+../src/main.c:323:3: error: 'lightHighLimit' undeclared (first use in this function)
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:488:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:488:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayValuesOnOLED':
+../src/main.c:515:2: warning: implicit declaration of function 'createStringsToDisplayOnOLED' [-Wimplicit-function-declaration]
+../src/main.c:516:2: warning: implicit declaration of function 'displayStringsOnOLED' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:522:6: warning: conflicting types for 'createStringsToDisplayOnOLED' [enabled by default]
+../src/main.c:515:2: note: previous implicit declaration of 'createStringsToDisplayOnOLED' was here
+../src/main.c:533:6: warning: conflicting types for 'displayStringsOnOLED' [enabled by default]
+../src/main.c:516:2: note: previous implicit declaration of 'displayStringsOnOLED' was here
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:580:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:581:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+make: *** [src/main.o] Error 1
+19:38:46 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:38:47 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:38:48 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:38:53 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:68:1: error: initializer element is not constant
+../src/main.c:69:1: error: initializer element is not constant
+../src/main.c: In function 'flipLightLimits':
+../src/main.c:325:3: error: 'lightLowLimit' undeclared (first use in this function)
+../src/main.c:325:3: note: each undeclared identifier is reported only once for each function it appears in
+../src/main.c:326:3: error: 'lightHighLimit' undeclared (first use in this function)
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:488:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:488:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayValuesOnOLED':
+../src/main.c:515:2: warning: implicit declaration of function 'createStringsToDisplayOnOLED' [-Wimplicit-function-declaration]
+../src/main.c:516:2: warning: implicit declaration of function 'displayStringsOnOLED' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:522:6: warning: conflicting types for 'createStringsToDisplayOnOLED' [enabled by default]
+../src/main.c:515:2: note: previous implicit declaration of 'createStringsToDisplayOnOLED' was here
+../src/main.c:533:6: warning: conflicting types for 'displayStringsOnOLED' [enabled by default]
+../src/main.c:516:2: note: previous implicit declaration of 'displayStringsOnOLED' was here
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:580:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:581:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+make: *** [src/main.o] Error 1
+19:40:03 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:40:04 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:40:05 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:40:11 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:68:1: error: initializer element is not constant
+../src/main.c:69:1: error: initializer element is not constant
+../src/main.c: In function 'flipLightLimits':
+../src/main.c:325:3: error: 'lightLowLimit' undeclared (first use in this function)
+../src/main.c:325:3: note: each undeclared identifier is reported only once for each function it appears in
+../src/main.c:326:3: error: 'lightHighLimit' undeclared (first use in this function)
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:488:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:488:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayValuesOnOLED':
+../src/main.c:515:2: warning: implicit declaration of function 'createStringsToDisplayOnOLED' [-Wimplicit-function-declaration]
+../src/main.c:516:2: warning: implicit declaration of function 'displayStringsOnOLED' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:522:6: warning: conflicting types for 'createStringsToDisplayOnOLED' [enabled by default]
+../src/main.c:515:2: note: previous implicit declaration of 'createStringsToDisplayOnOLED' was here
+../src/main.c:533:6: warning: conflicting types for 'displayStringsOnOLED' [enabled by default]
+../src/main.c:516:2: note: previous implicit declaration of 'displayStringsOnOLED' was here
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:580:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:581:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+make: *** [src/main.o] Error 1
+19:43:11 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:43:12 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:43:13 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:43:18 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'init_lightInterrupt':
+../src/main.c:269:23: error: 'lightInterruptLowerLimit' undeclared (first use in this function)
+../src/main.c:269:23: note: each undeclared identifier is reported only once for each function it appears in
+../src/main.c:270:23: error: 'lightInterruptHigherLimit' undeclared (first use in this function)
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:479:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:479:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayValuesOnOLED':
+../src/main.c:506:2: warning: implicit declaration of function 'createStringsToDisplayOnOLED' [-Wimplicit-function-declaration]
+../src/main.c:507:2: warning: implicit declaration of function 'displayStringsOnOLED' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:513:6: warning: conflicting types for 'createStringsToDisplayOnOLED' [enabled by default]
+../src/main.c:506:2: note: previous implicit declaration of 'createStringsToDisplayOnOLED' was here
+../src/main.c:524:6: warning: conflicting types for 'displayStringsOnOLED' [enabled by default]
+../src/main.c:507:2: note: previous implicit declaration of 'displayStringsOnOLED' was here
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:571:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:572:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+make: *** [src/main.o] Error 1
+19:45:49 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:45:50 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:45:55 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:46:00 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'init_lightInterrupt':
+../src/main.c:270:23: error: 'interruptDarkHigherLimit' undeclared (first use in this function)
+../src/main.c:270:23: note: each undeclared identifier is reported only once for each function it appears in
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:479:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:479:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayValuesOnOLED':
+../src/main.c:506:2: warning: implicit declaration of function 'createStringsToDisplayOnOLED' [-Wimplicit-function-declaration]
+../src/main.c:507:2: warning: implicit declaration of function 'displayStringsOnOLED' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:513:6: warning: conflicting types for 'createStringsToDisplayOnOLED' [enabled by default]
+../src/main.c:506:2: note: previous implicit declaration of 'createStringsToDisplayOnOLED' was here
+../src/main.c:524:6: warning: conflicting types for 'displayStringsOnOLED' [enabled by default]
+../src/main.c:507:2: note: previous implicit declaration of 'displayStringsOnOLED' was here
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:571:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:572:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+make: *** [src/main.o] Error 1
+19:46:44 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:46:45 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:46:46 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:46:52 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:479:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:479:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayValuesOnOLED':
+../src/main.c:506:2: warning: implicit declaration of function 'createStringsToDisplayOnOLED' [-Wimplicit-function-declaration]
+../src/main.c:507:2: warning: implicit declaration of function 'displayStringsOnOLED' [-Wimplicit-function-declaration]
+../src/main.c: At top level:
+../src/main.c:513:6: warning: conflicting types for 'createStringsToDisplayOnOLED' [enabled by default]
+../src/main.c:506:2: note: previous implicit declaration of 'createStringsToDisplayOnOLED' was here
+../src/main.c:524:6: warning: conflicting types for 'displayStringsOnOLED' [enabled by default]
+../src/main.c:507:2: note: previous implicit declaration of 'displayStringsOnOLED' was here
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:571:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:572:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38396	   2276	   1136	  41808	   a350	Assignment2.axf
+ 
+19:52:53 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+19:52:54 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+19:52:56 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+19:53:01 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:480:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:480:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:572:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:573:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38396	   2276	   1136	  41808	   a350	Assignment2.axf
+ 
+20:04:35 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+20:04:36 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+20:04:37 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+20:04:42 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+make: Nothing to be done for `all'.
+20:07:52 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+20:07:53 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+20:07:54 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+20:08:00 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:482:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:482:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:574:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:575:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38412	   2276	   1136	  41824	   a360	Assignment2.axf
+ 
+20:08:47 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+20:08:48 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+20:08:49 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+20:08:54 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:481:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:481:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:573:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:574:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38404	   2276	   1136	  41816	   a358	Assignment2.axf
+ 
+20:09:50 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+20:09:51 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+20:09:52 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+20:09:58 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:480:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:480:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:572:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:573:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  38396	   2276	   1136	  41808	   a350	Assignment2.axf
+ 
+20:12:57 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+20:12:58 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+20:12:59 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+20:13:05 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:480:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:480:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:572:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:573:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  48168	   2316	   1192	  51676	   c9dc	Assignment2.axf
+ 
+20:21:16 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+20:21:17 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+20:21:18 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+20:21:23 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+make: Nothing to be done for `all'.
+20:23:54 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+20:23:55 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+20:23:56 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+20:24:02 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:480:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:480:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:572:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:573:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  48168	   2316	   1192	  51676	   c9dc	Assignment2.axf
+ 
+20:25:24 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+20:25:25 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+20:25:26 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+20:25:32 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:483:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:483:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:575:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:576:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  48168	   2316	   1192	  51676	   c9dc	Assignment2.axf
+ 
+20:25:43 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+20:25:45 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+20:25:46 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+20:25:51 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+make: Nothing to be done for `all'.
+20:26:07 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+20:26:08 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+20:26:09 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+20:26:14 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+make: Nothing to be done for `all'.
+20:28:13 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+20:28:15 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+20:28:17 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+20:28:22 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:47:10: error: redefinition of 'interruptDarkLowerLimit'
+../src/main.c:44:10: note: previous definition of 'interruptDarkLowerLimit' was here
+../src/main.c:50:10: error: redefinition of 'interruptLightUpperLimit'
+../src/main.c:45:10: note: previous definition of 'interruptLightUpperLimit' was here
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:483:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:483:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:575:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:576:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+make: *** [src/main.o] Error 1
+20:28:34 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+20:28:35 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+20:28:36 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+20:28:42 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:47:10: error: redefinition of 'interruptDarkLowerLimit'
+../src/main.c:44:10: note: previous definition of 'interruptDarkLowerLimit' was here
+../src/main.c:50:10: error: redefinition of 'interruptLightUpperLimit'
+../src/main.c:45:10: note: previous definition of 'interruptLightUpperLimit' was here
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:483:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:483:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:575:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:576:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+make: *** [src/main.o] Error 1
+20:29:00 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+20:29:01 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+20:29:02 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+20:29:07 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'determineWarningToIssue':
+../src/main.c:480:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
+../src/main.c:480:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c: In function 'displayResultsOnUART':
+../src/main.c:572:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
+../src/main.c:573:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+Finished building: ../src/main.c
+ 
+Building target: Assignment2.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\Debug" -L"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\Debug" -Xlinker --gc-sections -Xlinker -Map=Assignment2.map -mcpu=cortex-m3 -mthumb -T "Assignment2_Debug.ld" -o "Assignment2.axf"  ./src/cr_startup_lpc17.o ./src/main.o   -lCMSISv1p30_LPC17xx -lLib_EaBaseBoard -lLib_MCU
+Finished building target: Assignment2.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
+   text	   data	    bss	    dec	    hex	filename
+  48184	   2316	   1192	  51692	   c9ec	Assignment2.axf
+ 
