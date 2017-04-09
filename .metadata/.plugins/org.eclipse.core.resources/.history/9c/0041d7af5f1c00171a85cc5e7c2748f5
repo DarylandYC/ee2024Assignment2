@@ -58,11 +58,6 @@ int prevLightFlag = 0;
 int oneSecondHasReached = 0;
 int oneThirdSecondsHasReached = 0;
 
-// RGB
-uint8_t RGB_RED_AND_BLUE = 0x03;
-int onOrOff = 1;
-int32_t warning = 0;
-
 /**
  * Define the two different types of mode
  */
@@ -315,30 +310,7 @@ void TIMER2_IRQHandler(void){
     unsigned int isrMask;
     isrMask = LPC_TIM2->IR;
     LPC_TIM2->IR = isrMask;        /* Clear the Interrupt Bit */
-	/**
-	 * Run Warnings
-	 * High Temperature: 		Blink Red
-	 * Movement and Low Light: 	Blink Blue
-	 * Do note that both can occur at the same time
-	 */
-		if(onOrOff == 1){
-			switch(warning){
-				case 3:
-				rgb_setLeds(RGB_RED_AND_BLUE);
-				break;
-
-				case 2:
-				rgb_setLeds(RGB_RED);
-				break;
-
-				case 1:
-				rgb_setLeds(RGB_BLUE);
-				break;
-			}
-		} else {
-			rgb_setLeds(0);
-		}
-		onOrOff = !onOrOff;
+    oneThirdSecondsHasReached = 1;
 }
 
 /**
@@ -436,6 +408,11 @@ int main (void) {
 	uint32_t light = 0;
 	uint32_t temperature = 0;
 
+	// RGB
+    uint8_t RGB_RED_AND_BLUE = 0x03;
+    int onOrOff = 1;
+    int32_t warning = 0;
+
     //initializing light interrupt
     light_setRange(LIGHT_RANGE_4000);
 	light_setLoThreshold(lightLowLimit);
@@ -532,6 +509,34 @@ int main (void) {
 					clearScreen = 0;
     			}
 
+				/**
+				 * Run Warnings
+				 * High Temperature: 		Blink Red
+				 * Movement and Low Light: 	Blink Blue
+				 * Do note that both can occur at the same time
+				 */
+				if(oneThirdSecondsHasReached == 1){
+					if(onOrOff == 1){
+						switch(warning){
+							case 3:
+							rgb_setLeds(RGB_RED_AND_BLUE);
+							break;
+
+							case 2:
+							rgb_setLeds(RGB_RED);
+							break;
+
+							case 1:
+							rgb_setLeds(RGB_BLUE);
+							break;
+						}
+					} else {
+						rgb_setLeds(0);
+					}
+					onOrOff = !onOrOff;
+					oneThirdSecondsHasReached = 0;
+				}
+
     	        if(oneSecondHasReached == 1){
         	        /**
         	         * 7 Segment Display
@@ -540,7 +545,7 @@ int main (void) {
     	        	run7Seg(&segCount);
 
 					// Issue Warning accordingly
-					if(temperature/10.0 > TEMP_HIGH_WARNING && lightFlag == 1){
+					if(temperature/10.0 > TEMP_HIGH_WARNING && movement == 1 && lightFlag == 1){
 						warning = 3;
 					} else if (temperature/10.0 > TEMP_HIGH_WARNING){
 						warning = 2;
