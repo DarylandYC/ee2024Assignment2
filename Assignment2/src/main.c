@@ -41,22 +41,10 @@
 #define LIGHT_LOW_WARNING 50
 #define TEMP_HIGH_WARNING 26
 
-#define DARK_LOWERLIMIT 50
-#define DARK_UPPERLIMIT 3891
-#define LIGHT_LOWERLIMIT 0
-#define LIGHT_UPPERLIMIT 50
-
-
-/**
- * Light interrupt Limits
- */
-uint32_t lightLowLimit = DARK_LOWERLIMIT;
-uint32_t lightHighLimit = DARK_UPPERLIMIT;
-
-int lightFlag = 0;
-int prevLightFlag = 0;
-int oneSecondHasReached = 0;
-int oneThirdSecondsHasReached = 0;
+const uint32_t interruptDarkLowerLimit = LIGHT_LOW_WARNING;
+const uint32_t interruptDarkUpperLimit = 3891;
+const uint32_t interruptLightLowerLimit = 0;
+const uint32_t interruptLightUpperLimit = LIGHT_LOW_WARNING;
 
 /**
  * Define the two different types of mode
@@ -65,23 +53,93 @@ typedef enum{
 	MODE_STABLE, MODE_MONITOR
 } system_mode;
 
-/**
- * Every time the GPIO interrupts are fired (regardless of which pin), this subroutine is called.
- * ISR Implementation
- */
-void EINT3_IRQHandler (void){
-	//light interrupt
-	if ((LPC_GPIOINT->IO2IntStatF >> 5) & 0x1) {
-		lightFlag = !lightFlag;
-		LPC_GPIOINT->IO2IntClr = 1 << 5;
-	}
-}
+typedef enum{
+	MOVEMENT_IN_LOW_LIGHT, HIGH_TEMPERATURE, HIGH_TERMPATURE_AND_MOVEMENT_IN_LOW_LIGHT, NONE
+} warning_issued;
+
+/***** Initialize Variables *****/
+// System
+volatile system_mode mode = MODE_STABLE;
+volatile warning_issued warning;
+uint32_t msTicks = 0;
+uint8_t isFirstTimeEnterStable = 1;
+uint8_t isFirstTimeEnterMonitor = 1;
+
+// Light Interrupts
+int lightLowWarning = 0;
+
+// Timer Interrupt
+int oneSecondHasReached = 0;
+
+// RGB
+uint8_t RGB_RED_AND_BLUE = 0x03;
+int onOrOff = 1;
+
+// 7 Segment
+int segCount = 0;
+const char displayValues[] = "0123456789ABCDEF";
+
+// SwitchButton 4
+uint8_t sw4 = 0;
+uint32_t sw4PressTicks;
+
+// Initialize OLED
+char OLED_TEMPERATURE[15];
+char OLED_LIGHT[15];
+char OLED_X[15];
+char OLED_Y[15];
+char OLED_Z[15];
+
+// Initialization of Accelerometer Variables
+int32_t xoff = 0;
+int32_t yoff = 0;
+int32_t zoff = 0;
+int8_t x = 0;
+int8_t y = 0;
+int8_t z = 0;
+int isThereMovement = 0;
+
+// UART
+const char messageEnterMonitor[] = "Entering MONITOR mode.\r\n";
+unsigned char displayValuesToUART[100] = "";
+int message = 0;
+
+// Light and Temperature Values
+uint32_t light = 0;
+uint32_t temperature = 0;
+
+/***** End of Variables *****/
 
 /**
- * Initialize Variables
+ * Run Warnings
+ * High Temperature: 		Blink Red
+ * Movement and Low Light: 	Blink Blue
+ * Do note that both can occur at the same time
  */
-volatile system_mode mode;
-uint32_t msTicks = 0;
+void runWarning(){
+	if(onOrOff == 1){
+		switch(warning){
+			case HIGH_TERMPATURE_AND_MOVEMENT_IN_LOW_LIGHT:
+				rgb_setLeds(RGB_RED_AND_BLUE);
+			break;
+
+			case HIGH_TEMPERATURE:
+				rgb_setLeds(RGB_RED);
+			break;
+
+			case MOVEMENT_IN_LOW_LIGHT:
+				rgb_setLeds(RGB_BLUE);
+			break;
+
+			case NONE:
+				rgb_setLeds(0);
+			break;
+		}
+	} else {
+		rgb_setLeds(0);
+	}
+	onOrOff = !onOrOff;
+}
 
 /**
  * Read Sensors
@@ -89,10 +147,13 @@ uint32_t msTicks = 0;
  * 	2) Temperature
  * 	3) Accelerometer
  */
-void readSensors(uint32_t* light, uint32_t* temperature, uint8_t* x, uint8_t* y, uint8_t* z){
-	*light = light_read();
-	*temperature = temp_read();
-	acc_read(&*x, &*y, &*z);
+void readAllSensors(){
+	light = light_read();
+	temperature = temp_read();
+	acc_read(&x, &y, &z);
+	x = x + xoff;
+	y = y + yoff;
+	z = z + zoff;
 }
 
 /**
@@ -128,8 +189,7 @@ void init_uart(void){
 /**
  * Initialization of i2c
  */
-static void init_i2c(void)
-{
+static void init_i2c(void){
 	PINSEL_CFG_Type PinCfg;
 
 	/* Initialize I2C2 pin connect */
@@ -150,8 +210,7 @@ static void init_i2c(void)
 /**
  * Initialize Standard Private SSP Interrupt handler
  */
-static void init_ssp(void)
-{
+static void init_ssp(void){
 	SSP_CFG_Type SSP_ConfigStruct;
 	PINSEL_CFG_Type PinCfg;
 
@@ -190,8 +249,7 @@ static void init_ssp(void)
 /**
  * Initialization of GPIO
  */
-static void init_GPIO(void)
-{
+static void init_GPIO(void){
 	// Initialize button SW4 (not really necessary since default configuration)
 	PINSEL_CFG_Type PinCfg;
 	PinCfg.Funcnum = 0;
@@ -201,6 +259,21 @@ static void init_GPIO(void)
 	PinCfg.Pinnum = 31;
 	PINSEL_ConfigPin(&PinCfg);
 	GPIO_SetDir(1, 1<<31, 0);
+}
+
+/**
+ * Function to initialize the light interrupt
+ */
+void init_lightInterrupt(){
+    light_setRange(LIGHT_RANGE_4000);
+	light_setLoThreshold(interruptDarkLowerLimit);
+	light_setHiThreshold(interruptDarkUpperLimit);
+	light_setIrqInCycles(LIGHT_CYCLE_1);
+	light_clearIrqStatus();
+	LPC_GPIOINT->IO2IntClr = 1 << 5;
+	LPC_GPIOINT->IO2IntEnF |= 1 << 5;
+
+	NVIC_ClearPendingIRQ(EINT3_IRQn);
 }
 
 /**
@@ -221,13 +294,12 @@ uint32_t getTicks() {
 /**
  * Function to display 7 Seg
  */
-const char displayValues[] = "0123456789ABCDEF";
-void run7Seg(int *segCount){
-	led7seg_setChar(displayValues[*segCount], FALSE);
-	if(*segCount == 15)
-		*segCount = 0;
+void change7Seg(){
+	led7seg_setChar(displayValues[segCount], FALSE);
+	if(segCount == 15)
+		segCount = 0;
 	else
-		(*segCount)++;
+		segCount++;
 }
 
 /**
@@ -241,15 +313,13 @@ void runBlinkRGB(uint8_t colour){
  * Function to flip the limits of the Light Sensor
  */
 void flipLightLimits(){
-	if(lightFlag == 1){
-		lightLowLimit = LIGHT_LOWERLIMIT;
-		lightHighLimit = LIGHT_UPPERLIMIT;
+	if(lightLowWarning == 1){
+		light_setLoThreshold(interruptLightLowerLimit);
+		light_setHiThreshold(interruptLightUpperLimit);
 	} else {
-		lightLowLimit = DARK_LOWERLIMIT;
-		lightHighLimit = DARK_UPPERLIMIT;
+		light_setLoThreshold(interruptDarkLowerLimit);
+		light_setHiThreshold(interruptDarkUpperLimit);
 	}
-	light_setLoThreshold(lightLowLimit);
-	light_setHiThreshold(lightHighLimit);
 	light_clearIrqStatus();
 }
 
@@ -258,7 +328,7 @@ void flipLightLimits(){
  * Credits given to: https://exploreembedded.com/wiki/LPC1768:_Timers
  */
 unsigned int getPrescalar(uint8_t timerPeripheralClockBit){
-    unsigned int peripheralClock,prescalar;
+    unsigned int peripheralClock, prescalar;
 
     // get the peripheral clock info for required timer
     if(timerPeripheralClockBit < 10)
@@ -292,14 +362,250 @@ unsigned int getPrescalar(uint8_t timerPeripheralClockBit){
 }
 
 /**
+ * Function to initialize the timer1 Interrupt
+ * timer1 will run at every 1 second interval
+ */
+void init_timer1Interrupt(){
+	LPC_SC->PCONP |= (1 << 2);			// Power Up Timer 1
+	LPC_SC->PCLKSEL0 |= 0x01 << 4;
+    LPC_TIM1->MCR  = (1<<0) | (1<<1);	// Clear Timer Counter on Match Register 0 match and Generate Interrupt
+    LPC_TIM1->PR   = getPrescalar(4);	// Prescalar for 1us
+    LPC_TIM1->MR0  = 1000000;   		// Load timer value to generate 1s delay
+    LPC_TIM1->TCR  = (1 << 0);			// Start timer by setting the Counter Enable
+}
+
+/**
+ * Function to initialize the timer2 Interrupt
+ * timer 2 will run at every 0.333333 second interval
+ */
+void init_timer2Interrupt(){
+    LPC_SC->PCONP |= (1 << 22);			// Power Up Timer 2
+    LPC_SC->PCLKSEL1 |= 0x01 << 12;
+    LPC_TIM2->MCR  = (1<<0) | (1<<1);	// Clear Timer Counter on Match Register 0 match and Generate Interrupt
+    LPC_TIM2->PR   = getPrescalar(12);	// Prescalar for 1us
+    LPC_TIM2->MR0  = 333333;   			// Load timer value to generate 1s delay
+    LPC_TIM2->TCR  = (1 << 0);			// Start timer by setting the Counter Enable
+}
+
+/**
+ * Function to check if switch 4 is pressed
+ */
+int isSwitch4Pressed(){
+	sw4 = (GPIO_ReadValue(1) >> 31) & 0x01;
+	if((sw4 == 0) && (getTicks()- sw4PressTicks >= 500)){
+		sw4PressTicks = getTicks();
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+/**
+ * Function to change the mode of the LPC
+ */
+void changeMode(){
+	if(mode == MODE_STABLE){
+		mode = MODE_MONITOR;
+	}else{
+		mode = MODE_STABLE;
+	}
+}
+
+/**
+ * Set the current position of the accelerometer to Zero-G
+ */
+void setAccelerometerAtZeroG(){
+    acc_read(&x, &y, &z);
+    xoff = 0-x;
+    yoff = 0-y;
+    zoff = 0-z;
+}
+
+void disableAllInterrupts(){
+	light_setLoThreshold(interruptDarkLowerLimit);
+	light_setHiThreshold(interruptDarkUpperLimit);
+    NVIC_DisableIRQ(TIMER1_IRQn);
+    NVIC_DisableIRQ(TIMER2_IRQn);
+    NVIC_DisableIRQ(EINT3_IRQn);
+    lightLowWarning = 0;
+    isThereMovement = 0;
+}
+
+/**
+ * Turn off all operations
+ * Note: Interrupts are also disabled
+ */
+void turnOffAllOperations(){
+	if(isFirstTimeEnterStable){
+		// Disable Interrupts
+		disableAllInterrupts();
+
+		// Turns the OLED Screen off
+		oled_clearScreen(OLED_COLOR_BLACK);
+
+		// Turns the OLED Screen off
+		led7seg_setChar(' ', FALSE);
+
+		// Reset the count of the 7 Seg
+		segCount = 0;
+
+		// Ensure that RGB is off
+		rgb_setLeds(0);
+
+		// Set Warning to none
+		warning = NONE;
+
+		// Indicate that the screen is cleared
+	    isFirstTimeEnterStable = 0;
+
+		// Change the flag to display monitor mode at UART
+		isFirstTimeEnterMonitor = 1;
+
+	}
+}
+
+/**
+ * Function to enable all devices
+ */
+void enableAllOperations(){
+	// Enable Timer Interrupt
+	NVIC_EnableIRQ(TIMER1_IRQn);
+	NVIC_EnableIRQ(EINT3_IRQn);
+
+	// Send message to UART
+	UART_Send(LPC_UART3, (uint8_t *) messageEnterMonitor, strlen(messageEnterMonitor), BLOCKING);
+
+	// Change Flag
+	isFirstTimeEnterMonitor = 0;
+
+	// Flag to set clearScreen when change mode
+	isFirstTimeEnterStable = 1;
+}
+
+/**
+ * Depending on the Sensors determine the warning to issue to the system
+ */
+void determineWarningToIssue(){
+	int isThereMovement = checkForMovement();
+	// Issue Warning accordingly
+	if(temperature/10.0 > TEMP_HIGH_WARNING && lightLowWarning == 1){
+		warning = HIGH_TERMPATURE_AND_MOVEMENT_IN_LOW_LIGHT;
+	} else if (temperature/10.0 > TEMP_HIGH_WARNING){
+		warning = HIGH_TEMPERATURE;
+	} else if (lightLowWarning == 1){
+		warning = MOVEMENT_IN_LOW_LIGHT;
+	} else{
+		warning = NONE;
+	}
+}
+
+/**
+ * Enable the interrupts if necessary, else disable them
+ */
+void enableInterruptsDependingOnWarning(){
+	if(warning == NONE)
+		NVIC_DisableIRQ(TIMER2_IRQn);
+	else
+		NVIC_EnableIRQ(TIMER2_IRQn);
+}
+
+/**
+ * Create the STrings to Display on the OLED
+ */
+void createStringsToDisplayOnOLED(){
+	sprintf(OLED_TEMPERATURE, "Temp: %-5.1f", temperature/10.0);
+	sprintf(OLED_LIGHT, "Light: %-5lu", light);
+	sprintf(OLED_X, "X: %-5d", x);
+	sprintf(OLED_Y, "y: %-5d", y);
+	sprintf(OLED_Z, "z: %-5d", z);
+}
+
+/**
+ * Display the Strings in the Array to the OLED
+ */
+void displayStringsOnOLED(){
+	oled_putString(0,  0, (uint8_t*) "    MONITOR    ", OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+	oled_putString(0, 10, (uint8_t*) OLED_TEMPERATURE, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+	oled_putString(0, 20, (uint8_t*) OLED_LIGHT, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+	oled_putString(0, 30, (uint8_t*) OLED_X, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+	oled_putString(0, 40, (uint8_t*) OLED_Y, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+	oled_putString(0, 50, (uint8_t*) OLED_Z, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+}
+
+/**
+ * Display the sensor values on the OLED
+ */
+void displayValuesOnOLED(){
+	createStringsToDisplayOnOLED();
+	displayStringsOnOLED();
+}
+
+/**
+ * Check to see if it has reached 5, 10, 15 seconds
+ * segCount is 1 value higher as it is incremented by run7seg
+ */
+int isFiveOrTenOrFifteenSeconds(){
+	if(segCount == 6 || segCount == 11 || segCount == 0)
+		return 1;
+
+	return 0;
+}
+
+/**
+ * Check to see if it has reached 15 seconds
+ * segCount is 1 value higher as it is incremented by run7seg
+ */
+int isFifteenSeconds(){
+	if(segCount == 0)
+		return 1;
+
+	return 0;
+}
+
+/**
+ * Check the accelerometer to see if there is movement
+ * A movement is considered to be of a value more than 15 in one direction
+ * This is due the small vibrations detected by the accelerometer when stationary
+ */
+int checkForMovement(){
+	if(abs(x) > 15 || abs(y) > 15 || abs(z) > 15)
+		return 1;
+
+	return 0;
+}
+
+/**
+ * Display the sensor values on the UART
+ */
+void displayResultsOnUART(){
+	sprintf(displayValuesToUART, "%03d_-_T%-5.1f_L%-5lu_AX%-5d_AY%-5d_AZ%-5d\r\n", message, temperature/10.0, light, x, y, z);
+	UART_Send(LPC_UART3, (uint8_t *) displayValuesToUART, strlen(displayValuesToUART), BLOCKING);
+	message++;
+}
+
+/**
+ * Every time the GPIO interrupts are fired (regardless of which pin), this subroutine is called.
+ * ISR Implementation
+ */
+void EINT3_IRQHandler (void){
+	// Change the flag when interrupt occurs
+	if ((LPC_GPIOINT->IO2IntStatF >> 5) & 0x1) {
+		LPC_GPIOINT->IO2IntClr = 1 << 5;
+		lightLowWarning = !lightLowWarning;
+		flipLightLimits();
+	}
+}
+
+/**
  * Function to handle the Timer1 interrupt
  * Credits given to: https://exploreembedded.com/wiki/LPC1768:_Timers
  */
 void TIMER1_IRQHandler(void){
     unsigned int isrMask;
     isrMask = LPC_TIM1->IR;
-    LPC_TIM1->IR = isrMask;        /* Clear the Interrupt Bit */
-    oneSecondHasReached = 1;
+    LPC_TIM1->IR = isrMask;		// Clear the Interrupt Bit
+	change7Seg();				// Change the 7 Segment
+	oneSecondHasReached = 1;	// Change Flag
 }
 
 /**
@@ -309,47 +615,26 @@ void TIMER1_IRQHandler(void){
 void TIMER2_IRQHandler(void){
     unsigned int isrMask;
     isrMask = LPC_TIM2->IR;
-    LPC_TIM2->IR = isrMask;        /* Clear the Interrupt Bit */
-    oneThirdSecondsHasReached = 1;
+    LPC_TIM2->IR = isrMask;		// Clear the Interrupt Bit
+    runWarning();				// Run the necessary warnings at the interrupt
 }
 
 /**
  * Main Function
  */
 int main (void) {
-	/**
-	 * Setup Timer1 to interrupt at 1 second intervals
-	 */
-	LPC_SC->PCONP |= (1 << 2);			// Power Up Timer 1
-	LPC_SC->PCLKSEL0 |= 0x01 << 4;
-    LPC_TIM1->MCR  = (1<<0) | (1<<1);	// Clear Timer Counter on Match Register 0 match and Generate Interrupt
-    LPC_TIM1->PR   = getPrescalar(4);	// Prescalar for 1us
-    LPC_TIM1->MR0  = 1000000;   		// Load timer value to generate 1s delay
-    LPC_TIM1->TCR  = (1 << 0);			// Start timer by setting the Counter Enable
-
-	/**
-	 * Setup Timer2 to interrupt at 5 second intervals
-	 */
-    LPC_SC->PCONP |= (1 << 22);			// Power Up Timer 2
-    LPC_SC->PCLKSEL1 |= 0x01 << 12;
-    LPC_TIM2->MCR  = (1<<0) | (1<<1);	// Clear Timer Counter on Match Register 0 match and Generate Interrupt
-    LPC_TIM2->PR   = getPrescalar(12);	// Prescalar for 1us
-    LPC_TIM2->MR0  = 333333;   		// Load timer value to generate 1s delay
-    LPC_TIM2->TCR  = (1 << 0);			// Start timer by setting the Counter Enable
-
-	/**
-	 * Setup SysTick Timer to interrupt at 1msec intervals
-	 */
+	// Setup SysTick Timer to interrupt at 1msec intervals
 	if (SysTick_Config(SystemCoreClock / 1000))
 	    while (1);  // Capture error
 
-	/**
-	 * Initialization of Devices
-	 */
+	// Initialize the device
     init_i2c();
     init_ssp();
     init_GPIO();
     init_uart();
+    init_lightInterrupt();
+    init_timer1Interrupt();
+    init_timer2Interrupt();
     pca9532_init();
     joystick_init();
     oled_init();
@@ -359,260 +644,42 @@ int main (void) {
     temp_init(getTicks);
     led7seg_init();
 
-	/**
-	 * Initialize OLED
-	 */
-	char OLED_TEMPERATURE[15];
-	char OLED_LIGHT[15];
-	char OLED_X[15];
-	char OLED_Y[15];
-	char OLED_Z[15];
-	uint8_t clearScreen = 0;
-	oled_clearScreen(OLED_COLOR_BLACK);
+    // Initialize Accelerometer to 0
+    setAccelerometerAtZeroG();
 
-	/**
-	 * Initialization of Accelerometer Variables
-	 */
-    int32_t xoff = 0;
-    int32_t yoff = 0;
-    int32_t zoff = 0;
-    int8_t x = 0;
-    int8_t y = 0;
-    int8_t z = 0;
-    int8_t prevX = 0;
-    int8_t prevY = 0;
-    int8_t prevZ = 0;
-    int32_t movement = 0;
+    // Set start time for the De-bouncing of SW4
+    sw4PressTicks = getTicks();
 
-    /*
-     * Assume base board in zero-g position when reading first value.
-     */
-    acc_read(&x, &y, &z);
-    xoff = 0-x;
-    yoff = 0-y;
-    zoff = 0-z;
+    while (1){
+    	// Switch to determine the changing of mode
+    	if(isSwitch4Pressed())
+    		changeMode();
 
-	/**
-	 * Define Necessary variables required
-	 */
-	// UART
-	char enterMonitor[] = "Entering MONITOR mode.\r\n";
-	unsigned char result[100] = "";
-	uint8_t firstTimeEnterMonitor = 0;
-	int message = 0;
-
-    // 7 Segment
-    int segCount = 0;
-
-    // Light and Temperature Values
-	uint32_t light = 0;
-	uint32_t temperature = 0;
-
-	// RGB
-    uint8_t RGB_RED_AND_BLUE = 0x03;
-    int onOrOff = 1;
-    int32_t warning = 0;
-
-    //initializing light interrupt
-    light_setRange(LIGHT_RANGE_4000);
-	light_setLoThreshold(lightLowLimit);
-	light_setHiThreshold(lightHighLimit);
-	light_setIrqInCycles(LIGHT_CYCLE_1);
-	light_clearIrqStatus();
-
-	LPC_GPIOINT->IO2IntClr = 1 << 5;
-	LPC_GPIOINT->IO2IntEnF |= 1 << 5;
-
-	NVIC_ClearPendingIRQ(EINT3_IRQn);
-	NVIC_EnableIRQ(EINT3_IRQn);
-
-    // SwitchButton 4
-    uint8_t sw4 = 0;
-    uint32_t sw4PressTicks = getTicks();
-
-    while (1)
-    {
-		/**
-		 * Switch button to determine the mode of the board
-		 */
-    	sw4 = (GPIO_ReadValue(1) >> 31) & 0x01;
-    	if((sw4 == 0) && (getTicks()- sw4PressTicks >= 500)){
-    		sw4PressTicks = getTicks();
-    		if(mode == MODE_STABLE){
-    			mode = MODE_MONITOR;
-    		}else{
-    			mode = MODE_STABLE;
-    			clearScreen = 0;
-    		}
-    	}
-
-		/**
-		 * Configure the board to run according to the mode
-		 */
+    	// Configure the operations to run depending on the mode
     	switch(mode){
-    		/**
-    		 * All Sensors are turned off, no readings are being made
-    		 */
     		case MODE_STABLE:
-    			if(clearScreen == 0){
-					// Turns the OLED Screen off
-					oled_clearScreen(OLED_COLOR_BLACK);
-
-					// Turns the OLED Screen off
-					led7seg_setChar(' ', FALSE);
-
-					// Reset the count of the 7 Seg
-					segCount = 0;
-
-					// Ensure that RGB is off
-					rgb_setLeds(0);
-
-					// Indicate that the screen is cleared
-					clearScreen = 1;
-
-					// Flag to indicate entering monitor mode
-					firstTimeEnterMonitor = 0;
-
-					// Disable Timer Interrupts
-				    NVIC_DisableIRQ(TIMER1_IRQn);
-				    NVIC_DisableIRQ(TIMER2_IRQn);
-    			}
-
+    			turnOffAllOperations();
     		break;
 
-    		/**
-    		 * Turn the following devices on:
-    		 * 	1) 7 Segment Display
-    		 * 	2) Temperature Sensor
-    		 * 	3) Light Sensors
-    		 * 	4) Accelerometer
-    		 * 	5) OLED
-    		 * 	6) UART
-    		 * 	7) Blinking Lights
-    		 */
     		case MODE_MONITOR:
-    	        /**
-    	         * Check to see if this is the first time entering monitor mode
-    	         */
-    			if(firstTimeEnterMonitor == 0){
-    				// Enable Timer Interrupt
-    				NVIC_EnableIRQ(TIMER1_IRQn);
-    				NVIC_EnableIRQ(TIMER2_IRQn);
+    			if(isFirstTimeEnterMonitor)
+    				enableAllOperations();
 
-    				// Send message to UART
-    				UART_Send(LPC_UART3, (uint8_t *) enterMonitor, strlen(enterMonitor), BLOCKING);
+    	        if(oneSecondHasReached){
+    	        	determineWarningToIssue();
+    	        	enableInterruptsDependingOnWarning();
 
-    				// Change Flag
-    				firstTimeEnterMonitor = 1;
-
-					// Flag to set clearScreen when change mode
-					clearScreen = 0;
-    			}
-
-				/**
-				 * Run Warnings
-				 * High Temperature: 		Blink Red
-				 * Movement and Low Light: 	Blink Blue
-				 * Do note that both can occur at the same time
-				 */
-				if(oneThirdSecondsHasReached == 1){
-					if(onOrOff == 1){
-						switch(warning){
-							case 3:
-							rgb_setLeds(RGB_RED_AND_BLUE);
-							break;
-
-							case 2:
-							rgb_setLeds(RGB_RED);
-							break;
-
-							case 1:
-							rgb_setLeds(RGB_BLUE);
-							break;
-						}
-					} else {
-						rgb_setLeds(0);
-					}
-					onOrOff = !onOrOff;
-					oneThirdSecondsHasReached = 0;
-				}
-
-    	        if(oneSecondHasReached == 1){
-        	        /**
-        	         * 7 Segment Display
-        	         * Increases segCount after use
-        	         */
-    	        	run7Seg(&segCount);
-
-					// Issue Warning accordingly
-					if(temperature/10.0 > TEMP_HIGH_WARNING && movement == 1 && lightFlag == 1){
-						warning = 3;
-					} else if (temperature/10.0 > TEMP_HIGH_WARNING){
-						warning = 2;
-					} else if (lightFlag == 1){
-						warning = 1;
-					} else{
-						warning = 0;
-					}
-
-					/**
-					 * OLED
-					 * Values changes when 7Seg display 5,10,15
-					 * segCount is 1 value higher as it is incremented by run7seg
-					 */
-    	        	if(segCount == 6 || segCount == 11 || segCount == 0){
-						readSensors(&light, &temperature, &x, &y, &z);
-						x = x + xoff;
-						y = y + yoff;
-						z = z + zoff;
-						sprintf(OLED_TEMPERATURE, "Temp: %-5.1f", temperature/10.0);
-						sprintf(OLED_LIGHT, "Light: %-5lu", light);
-						sprintf(OLED_X, "X: %-5d", x);
-						sprintf(OLED_Y, "y: %-5d", y);
-						sprintf(OLED_Z, "z: %-5d", z);
-						oled_putString(0,  0, (uint8_t*) "    MONITOR    ", OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-						oled_putString(0, 10, (uint8_t*) OLED_TEMPERATURE, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-						oled_putString(0, 20, (uint8_t*) OLED_LIGHT, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-						oled_putString(0, 30, (uint8_t*) OLED_X, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-						oled_putString(0, 40, (uint8_t*) OLED_Y, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-						oled_putString(0, 50, (uint8_t*) OLED_Z, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+    	        	if(isFiveOrTenOrFifteenSeconds()){
+						readAllSensors();
+						displayValuesOnOLED();
     	        	}
 
-					/**
-					 * Updates warnings every 15 seconds
-					 * segCount is 1 value higher as it is incremented by run7seg
-					 */
-					if(segCount == 0){
-						// Determine if there is movement
-						if(abs(x-prevX) > 15 || abs(y-prevY) > 15 || abs(z-prevZ) > 15)
-							movement = 1;
-						else
-							movement = 0;
+    	        	if(isFifteenSeconds())
+    	        		displayResultsOnUART();
 
-						// Store the accelerometer values
-						prevX = x;
-						prevY = y;
-						prevZ = z;
-					}
-
-					/**
-					 * UART
-					 * Values changes when 7Seg display 15
-					 * segCount is 1 value higher as it is incremented by run7seg
-					 */
-					if(segCount == 0){
-						sprintf(result, "%03d_-_T%-5.1f_L%-5lu_AX%-5d_AY%-5d_AZ%-5d\r\n", message, temperature / 10.0, light, x, y, z);
-						UART_Send(LPC_UART3, (uint8_t *) result, strlen(result), BLOCKING);
-						message++;
-					}
+					// Reset the one second
     	        	oneSecondHasReached = 0;
     	        }
-
-    	        if(prevLightFlag != lightFlag){
-    	        	flipLightLimits();
-    	        	prevLightFlag = lightFlag;
-    	        }
-
     		break;
     	}
     }
