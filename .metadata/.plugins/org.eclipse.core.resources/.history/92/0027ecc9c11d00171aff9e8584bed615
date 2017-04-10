@@ -136,8 +136,6 @@ void runWarning(){
 			rgb_setLeds(0);
 		}
 		onOrOff = !onOrOff;
-	} else {
-		rgb_setLeds(0);
 	}
 }
 

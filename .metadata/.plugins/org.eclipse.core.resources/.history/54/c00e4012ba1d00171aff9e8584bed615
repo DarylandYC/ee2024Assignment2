@@ -117,28 +117,29 @@ uint32_t temperature = 0;
  * Do note that both can occur at the same time
  */
 void runWarning(){
-	if(warning != NONE){
-		if(onOrOff == 1){
-			switch(warning){
-				case HIGH_TERMPATURE_AND_MOVEMENT_IN_LOW_LIGHT:
-					rgb_setLeds(RGB_RED_AND_BLUE);
-				break;
+	if(onOrOff == 1){
+		switch(warning){
+			case HIGH_TERMPATURE_AND_MOVEMENT_IN_LOW_LIGHT:
+				rgb_setLeds(RGB_RED_AND_BLUE);
+			break;
 
-				case HIGH_TEMPERATURE:
-					rgb_setLeds(RGB_RED);
-				break;
+			case HIGH_TEMPERATURE:
+				rgb_setLeds(RGB_RED);
+			break;
 
-				case MOVEMENT_IN_LOW_LIGHT:
-					rgb_setLeds(RGB_BLUE);
-				break;
-			}
-		} else {
-			rgb_setLeds(0);
+			case MOVEMENT_IN_LOW_LIGHT:
+				rgb_setLeds(RGB_BLUE);
+			break;
+
+			case NONE:
+			default:
+				rgb_setLeds(0);
+			break;
 		}
-		onOrOff = !onOrOff;
 	} else {
 		rgb_setLeds(0);
 	}
+	onOrOff = !onOrOff;
 }
 
 /**
@@ -503,12 +504,10 @@ void determineWarningToIssue(){
  * Enable the interrupts if necessary, else disable them
  */
 void enableInterruptsDependingOnWarning(){
-	if(warning == NONE){
-		rgb_setLeds(0);
+	if(warning == NONE)
 		NVIC_DisableIRQ(TIMER2_IRQn);
-	} else {
+	else
 		NVIC_EnableIRQ(TIMER2_IRQn);
-	}
 }
 
 /**

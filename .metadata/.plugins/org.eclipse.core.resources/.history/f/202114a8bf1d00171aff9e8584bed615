@@ -117,28 +117,33 @@ uint32_t temperature = 0;
  * Do note that both can occur at the same time
  */
 void runWarning(){
-	if(warning != NONE){
-		if(onOrOff == 1){
-			switch(warning){
-				case HIGH_TERMPATURE_AND_MOVEMENT_IN_LOW_LIGHT:
-					rgb_setLeds(RGB_RED_AND_BLUE);
-				break;
+	if(onOrOff == 1 && lightLowWarning == 1){
+		switch(warning){
+			case HIGH_TERMPATURE_AND_MOVEMENT_IN_LOW_LIGHT:
+				rgb_setLeds(RGB_RED_AND_BLUE);
+			break;
 
-				case HIGH_TEMPERATURE:
-					rgb_setLeds(RGB_RED);
-				break;
+			case HIGH_TEMPERATURE:
+				rgb_setLeds(RGB_RED);
+			break;
 
-				case MOVEMENT_IN_LOW_LIGHT:
-					rgb_setLeds(RGB_BLUE);
-				break;
-			}
-		} else {
-			rgb_setLeds(0);
+			case MOVEMENT_IN_LOW_LIGHT:
+				rgb_setLeds(RGB_BLUE);
+				printf("Blink Blue\n");
+			break;
+
+			case NONE:
+			default: // Fall through
+				rgb_setLeds(0);
+				onOrOff = 0;
+				printf("Off Light in %d\n", onOrOff);
+			break;
 		}
-		onOrOff = !onOrOff;
 	} else {
 		rgb_setLeds(0);
+		printf("Off Light\n");
 	}
+	onOrOff = !onOrOff;
 }
 
 /**
@@ -494,6 +499,7 @@ void determineWarningToIssue(){
 		warning = HIGH_TEMPERATURE;
 	} else if (lightLowWarning == 1){
 		warning = MOVEMENT_IN_LOW_LIGHT;
+		printf("Low Light Warning\n");
 	} else{
 		warning = NONE;
 	}
@@ -503,12 +509,10 @@ void determineWarningToIssue(){
  * Enable the interrupts if necessary, else disable them
  */
 void enableInterruptsDependingOnWarning(){
-	if(warning == NONE){
-		rgb_setLeds(0);
+	if(warning == NONE)
 		NVIC_DisableIRQ(TIMER2_IRQn);
-	} else {
+	else
 		NVIC_EnableIRQ(TIMER2_IRQn);
-	}
 }
 
 /**
@@ -594,6 +598,10 @@ void EINT3_IRQHandler (void){
 	if ((LPC_GPIOINT->IO2IntStatF >> 5) & 0x1) {
 		LPC_GPIOINT->IO2IntClr = 1 << 5;
 		lightLowWarning = !lightLowWarning;
+		if(lightLowWarning == 1)
+			printf("Low Light\n");
+		else
+			printf("Strong Light\n");
 		flipLightLimits();
 	}
 }

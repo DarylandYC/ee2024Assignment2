@@ -130,6 +130,7 @@ void runWarning(){
 
 				case MOVEMENT_IN_LOW_LIGHT:
 					rgb_setLeds(RGB_BLUE);
+					printf("Blink Blue\n");
 				break;
 			}
 		} else {
@@ -494,6 +495,7 @@ void determineWarningToIssue(){
 		warning = HIGH_TEMPERATURE;
 	} else if (lightLowWarning == 1){
 		warning = MOVEMENT_IN_LOW_LIGHT;
+		printf("Low Light Warning\n");
 	} else{
 		warning = NONE;
 	}
@@ -594,6 +596,10 @@ void EINT3_IRQHandler (void){
 	if ((LPC_GPIOINT->IO2IntStatF >> 5) & 0x1) {
 		LPC_GPIOINT->IO2IntClr = 1 << 5;
 		lightLowWarning = !lightLowWarning;
+		if(lightLowWarning == 1)
+			printf("Low Light\n");
+		else
+			printf("Strong Light\n");
 		flipLightLimits();
 	}
 }
