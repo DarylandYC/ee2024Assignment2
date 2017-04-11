@@ -1,6 +1,6 @@
-15:56:36 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+01:44:09 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
 make all 
 make: Nothing to be done for `all'.
 
-15:56:36 Build Finished (took 224ms)
+01:44:09 Build Finished (took 228ms)
 

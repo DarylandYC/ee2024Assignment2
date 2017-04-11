@@ -3,26 +3,26 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
 		<item value="355" key="DIALOG_Y_ORIGIN"/>
-		<item value="381" key="DIALOG_HEIGHT"/>
 		<item value="1103" key="DIALOG_X_ORIGIN"/>
+		<item value="381" key="DIALOG_HEIGHT"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="acc_init()" key="selection"/>
+		<item value="sw4" key="selection"/>
 		<list key="findhistory">
-			<item value="acc_init()"/>
-			<item value="segCount"/>
-			<item value="oneThirdSecondsHasReached"/>
-			<item value="prevLightFlag"/>
-			<item value="enterMonitor"/>
-			<item value="UART_receive"/>
-			<item value="UART_send"/>
-			<item value="run7seg"/>
+			<item value="sw4"/>
+			<item value="readAccelerometer"/>
+			<item value="setAccelerometerAtZeroG"/>
+			<item value="prevX"/>
+			<item value="storePrevious"/>
+			<item value="read_acc()"/>
+			<item value="checkFore"/>
+			<item value="acc_rea"/>
 		</list>
 		<list key="replacehistory">
 		</list>

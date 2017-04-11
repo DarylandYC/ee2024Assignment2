@@ -26,7 +26,6 @@
 #include "rgb.h"
 #include "led7seg.h"
 #include "light.h"
-#include "temp.h"
 
 /**
  * Import Libraries from C
@@ -38,13 +37,16 @@
 /**
  * Define Constants
  */
-#define LIGHT_LOW_WARNING 50
-#define TEMP_HIGH_WARNING 45
+#define LIGHT_LOW_WARNING 50 // In Lux
+#define TEMP_HIGH_WARNING 26 // In Celcius
 
-const uint32_t interruptDarkLowerLimit = LIGHT_LOW_WARNING;
-const uint32_t interruptDarkUpperLimit = 3891;
+/**
+ * Define the Limits
+ */
+const uint32_t interruptDarkLowerLimit = LIGHT_LOW_WARNING;		// Interrupt to occur when below this warning
+const uint32_t interruptDarkUpperLimit = 3891;					// In accordance to the data sheet
 const uint32_t interruptLightLowerLimit = 0;
-const uint32_t interruptLightUpperLimit = LIGHT_LOW_WARNING - 1;
+const uint32_t interruptLightUpperLimit = LIGHT_LOW_WARNING - 1;// Interrupt to occur when above this warning
 
 /**
  * Define the two different types of mode
@@ -53,6 +55,9 @@ typedef enum{
 	MODE_STABLE, MODE_MONITOR
 } system_mode;
 
+/**
+ * Define the 4 types of warnings
+ */
 typedef enum{
 	MOVEMENT_IN_LOW_LIGHT, HIGH_TEMPERATURE, HIGH_TERMPATURE_AND_MOVEMENT_IN_LOW_LIGHT, NONE
 } warning_issued;
@@ -111,7 +116,12 @@ int message = 0;
 
 // Light and Temperature Values
 uint32_t light = 0;
-uint32_t temperature = 0;
+volatile uint32_t temperature = 0;
+
+// Temperature Variables
+uint8_t tempState = 0;
+uint32_t temp1 = 0;
+uint32_t temp2 = 0;
 
 /***** End of Variables *****/
 
@@ -136,29 +146,18 @@ void runWarning(){
 				case MOVEMENT_IN_LOW_LIGHT:
 					rgb_setLeds(RGB_BLUE);
 				break;
+
+				case NONE:
+				default: // Fall Through
+				break;
 			}
 		} else {
 			rgb_setLeds(0);
 		}
-		onOrOff = !onOrOff;
+		onOrOff = !onOrOff; // Change the state
 	} else {
 		rgb_setLeds(0);
 	}
-}
-
-/**
- * Read Sensors
- * 	1) Light
- * 	2) Temperature
- * 	3) Accelerometer
- */
-void readAllSensors(){
-	light = light_read();
-	temperature = temp_read();
-	acc_read(&x, &y, &z);
-	x = x + xoff;
-	y = y + yoff;
-	z = z + zoff;
 }
 
 /**
@@ -269,16 +268,16 @@ static void init_GPIO(void){
  * Function to initialize the light interrupt
  */
 void init_lightInterrupt(){
-    light_setRange(LIGHT_RANGE_4000);
-	light_setLoThreshold(interruptDarkLowerLimit);
-	light_setHiThreshold(interruptDarkUpperLimit);
-	light_setIrqInCycles(LIGHT_CYCLE_1);
-	light_clearIrqStatus();
-	LPC_GPIOINT->IO2IntClr = 1 << 5;
-	LPC_GPIOINT->IO2IntEnF |= 1 << 5;
+    light_setRange(LIGHT_RANGE_4000);				// In accordance to data sheet
+	light_setLoThreshold(interruptDarkLowerLimit);	// Will interrupt below this threshold
+	light_setHiThreshold(interruptDarkUpperLimit);	// Will interrupt above this threshold
+	light_setIrqInCycles(LIGHT_CYCLE_1);			// Number of cycles before the interrupt kicks in
+	light_clearIrqStatus();							// Clear the Interrupt Status
+	LPC_GPIOINT->IO2IntClr = 1 << 5;				// Clear the interrupt flag of a pin
+	LPC_GPIOINT->IO2IntEnF |= 1 << 5;				// Set the interrupt to occur at falling edge
 
-	NVIC_ClearPendingIRQ(EINT3_IRQn);
-	NVIC_EnableIRQ(EINT3_IRQn);
+	NVIC_ClearPendingIRQ(EINT3_IRQn);				// Clear any pending interrupt occuring at that pin
+	NVIC_EnableIRQ(EINT3_IRQn);						// Enable the interrupt
 }
 
 /**
@@ -319,12 +318,15 @@ void runBlinkRGB(uint8_t colour){
  */
 void flipLightLimits(){
 	if(lightLowWarning == 1){
+		// Set the interrupt to occur again when light level is high
 		light_setLoThreshold(interruptLightLowerLimit);
 		light_setHiThreshold(interruptLightUpperLimit);
 	} else {
+		// Set the interrupt to occur again when light level is low
 		light_setLoThreshold(interruptDarkLowerLimit);
 		light_setHiThreshold(interruptDarkUpperLimit);
 	}
+	// Clear the interrupt status so that it can occur again
 	light_clearIrqStatus();
 }
 
@@ -341,7 +343,7 @@ unsigned int getPrescalar(uint8_t timerPeripheralClockBit){
     else
     	peripheralClock = (LPC_SC->PCLKSEL1 >> timerPeripheralClockBit) & 0x03;
 
-    // Decode the bits to determine the peripheral clock
+    // Decode the bits to determine the peripheral clock, obtained from the LPC Timer
     switch ( peripheralClock ){
 		case 0x00:
 			peripheralClock = SystemCoreClock/4;
@@ -372,7 +374,7 @@ unsigned int getPrescalar(uint8_t timerPeripheralClockBit){
  */
 void init_timer1Interrupt(){
 	LPC_SC->PCONP |= (1 << 2);			// Power Up Timer 1
-	LPC_SC->PCLKSEL0 |= 0x01 << 4;
+	LPC_SC->PCLKSEL0 |= 0x01 << 4;		// Select the Timer 1 pin
     LPC_TIM1->MCR  = (1<<0) | (1<<1);	// Clear Timer Counter on Match Register 0 match and Generate Interrupt
     LPC_TIM1->PR   = getPrescalar(4);	// Prescalar for 1us
     LPC_TIM1->MR0  = 1000000;   		// Load timer value to generate 1s delay
@@ -385,7 +387,7 @@ void init_timer1Interrupt(){
  */
 void init_timer2Interrupt(){
     LPC_SC->PCONP |= (1 << 22);			// Power Up Timer 2
-    LPC_SC->PCLKSEL1 |= 0x01 << 12;
+    LPC_SC->PCLKSEL1 |= 0x01 << 12;		// Select the Timer 2 pin
     LPC_TIM2->MCR  = (1<<0) | (1<<1);	// Clear Timer Counter on Match Register 0 match and Generate Interrupt
     LPC_TIM2->PR   = getPrescalar(12);	// Prescalar for 1us
     LPC_TIM2->MR0  = 333333;   			// Load timer value to generate 1s delay
@@ -396,7 +398,9 @@ void init_timer2Interrupt(){
  * Function to check if switch 4 is pressed
  */
 int isSwitch4Pressed(){
+	// Read the switch
 	sw4 = (GPIO_ReadValue(1) >> 31) & 0x01;
+	// De-bounce the switch to determined if it is press
 	if((sw4 == 0) && (getTicks()- sw4PressTicks >= 500)){
 		sw4PressTicks = getTicks();
 		return 1;
@@ -417,6 +421,25 @@ void changeMode(){
 }
 
 /**
+ * Function to read the accelerometer
+ */
+void readAccelerometer(){
+	acc_read(&x, &y, &z);
+	x = x + xoff;
+	y = y + yoff;
+	z = z + zoff;
+}
+
+/**
+ * Store previous value of the accelerometer
+ */
+void storePreviousAccelerometerValues(){
+	prevX = x;
+	prevY = y;
+	prevZ = z;
+}
+
+/**
  * Set the current position of the accelerometer to Zero-G
  */
 void setAccelerometerAtZeroG(){
@@ -426,14 +449,15 @@ void setAccelerometerAtZeroG(){
     zoff = 0-z;
 }
 
+/**
+ * Function to disable all the interrupts
+ */
 void disableAllInterrupts(){
 	light_setLoThreshold(interruptDarkLowerLimit);
 	light_setHiThreshold(interruptDarkUpperLimit);
     NVIC_DisableIRQ(TIMER1_IRQn);
     NVIC_DisableIRQ(TIMER2_IRQn);
     NVIC_DisableIRQ(EINT3_IRQn);
-    lightLowWarning = 0;
-    isThereMovement = 0;
 }
 
 /**
@@ -444,6 +468,11 @@ void turnOffAllOperations(){
 	if(isFirstTimeEnterStable){
 		// Disable Interrupts
 		disableAllInterrupts();
+
+		// Reset the flags
+	    lightLowWarning = 0;
+	    isThereMovement = 0;
+	    onOrOff = 1;
 
 		// Turns the OLED Screen off
 		oled_clearScreen(OLED_COLOR_BLACK);
@@ -473,6 +502,13 @@ void turnOffAllOperations(){
  * Function to enable all devices
  */
 void enableAllOperations(){
+	// Display monitor on the OLED
+	oled_putString(0,  0, (uint8_t*) "    MONITOR    ", OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+
+	// Read and store accelerometer value
+	readAccelerometer();
+	storePreviousAccelerometerValues();
+
 	// Enable Timer Interrupt
 	NVIC_EnableIRQ(TIMER1_IRQn);
 	NVIC_EnableIRQ(EINT3_IRQn);
@@ -489,32 +525,43 @@ void enableAllOperations(){
 }
 
 /**
+ * Check the accelerometer to see if there is movement
+ * A movement is considered to be of a value more than 15 in one direction
+ * This is due the small vibrations detected by the accelerometer when stationary
+ */
+int checkForMovement(){
+	if(abs(x-prevX) > 10 || abs(y-prevY) > 10 || abs(z-prevZ) > 10){
+		storePreviousAccelerometerValues();
+		return 1;
+	}
+	storePreviousAccelerometerValues();
+	return 0;
+}
+
+/**
  * Depending on the Sensors determine the warning to issue to the system
  */
 void determineWarningToIssue(){
-	if(warning != HIGH_TERMPATURE_AND_MOVEMENT_IN_LOW_LIGHT){
-		if(warning != MOVEMENT_IN_LOW_LIGHT){
-			acc_read(&x, &y, &z);
-			x = x + xoff;
-			y = y + yoff;
-			z = z + zoff;
-			isThereMovement = checkForMovement();
-		}
+	// Read accelerometer value and check for movement
+	readAccelerometer();
+	isThereMovement = checkForMovement();
 
-		if(warning != HIGH_TEMPERATURE)
-			temperature = temp_read();
-	}
-	// Issue Warning accordingly
-	if(temperature/10.0 > TEMP_HIGH_WARNING && isThereMovement && lightLowWarning == 1){
-		warning = HIGH_TERMPATURE_AND_MOVEMENT_IN_LOW_LIGHT;
-		NVIC_DisableIRQ(EINT3_IRQn);
-	} else if (temperature/10.0 > TEMP_HIGH_WARNING){
-		warning = HIGH_TEMPERATURE;
-	} else if (lightLowWarning == 1 && isThereMovement){
-		warning = MOVEMENT_IN_LOW_LIGHT;
-		NVIC_DisableIRQ(EINT3_IRQn);
-	} else{
-		warning = NONE;
+	if(warning == NONE){
+		// Check to see if there are any warnings
+		if(temperature/10.0 > TEMP_HIGH_WARNING && isThereMovement && lightLowWarning == 1)
+			warning = HIGH_TERMPATURE_AND_MOVEMENT_IN_LOW_LIGHT;
+		else if (temperature/10.0 > TEMP_HIGH_WARNING)
+			warning = HIGH_TEMPERATURE;
+		else if (lightLowWarning == 1 && isThereMovement)
+			warning = MOVEMENT_IN_LOW_LIGHT;
+	} else if (warning == MOVEMENT_IN_LOW_LIGHT){
+		// Check temperature
+		if (temperature/10.0 > TEMP_HIGH_WARNING)
+			warning = HIGH_TERMPATURE_AND_MOVEMENT_IN_LOW_LIGHT;
+	} else if (warning == HIGH_TEMPERATURE){
+		// Check for light
+		if (lightLowWarning == 1 && isThereMovement)
+			warning = HIGH_TERMPATURE_AND_MOVEMENT_IN_LOW_LIGHT;
 	}
 }
 
@@ -545,12 +592,23 @@ void createStringsToDisplayOnOLED(){
  * Display the Strings in the Array to the OLED
  */
 void displayStringsOnOLED(){
-	oled_putString(0,  0, (uint8_t*) "    MONITOR    ", OLED_COLOR_WHITE, OLED_COLOR_BLACK);
 	oled_putString(0, 10, (uint8_t*) OLED_TEMPERATURE, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
 	oled_putString(0, 20, (uint8_t*) OLED_LIGHT, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
 	oled_putString(0, 30, (uint8_t*) OLED_X, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
 	oled_putString(0, 40, (uint8_t*) OLED_Y, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
 	oled_putString(0, 50, (uint8_t*) OLED_Z, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+}
+
+/**
+ * Function to initialize the temperature interrupt
+ */
+void init_temp_interrupt() {
+
+	LPC_GPIOINT->IO0IntClr |= (1 << 2);
+	LPC_GPIOINT->IO0IntEnF |= (1 << 2);
+
+	NVIC_ClearPendingIRQ(EINT3_IRQn);
+	NVIC_EnableIRQ(EINT3_IRQn);
 }
 
 /**
@@ -584,24 +642,6 @@ int isFifteenSeconds(){
 }
 
 /**
- * Check the accelerometer to see if there is movement
- * A movement is considered to be of a value more than 15 in one direction
- * This is due the small vibrations detected by the accelerometer when stationary
- */
-int checkForMovement(){
-	if(abs(x-prevX) > 15 || abs(y-prevY) > 15 || abs(z-prevZ) > 15){
-		prevX = x;
-		prevY = y;
-		prevZ = z;
-		return 1;
-	}
-	prevX = x;
-	prevY = y;
-	prevZ = z;
-	return 0;
-}
-
-/**
  * Display the sensor values on the UART
  */
 void displayResultsOnUART(){
@@ -626,6 +666,27 @@ void EINT3_IRQHandler (void){
 		LPC_GPIOINT->IO2IntClr = 1 << 5;
 		lightLowWarning = !lightLowWarning;
 		flipLightLimits();
+	}else if ((LPC_GPIOINT->IO0IntStatF >> 2) & 0x1){
+		if (temp1 == 0 && temp2 == 0) {
+			temp1 = getTicks();
+		}
+		else if (temp1 != 0 && temp2 == 0) {
+			tempState++;
+			if (tempState == 170) {
+				temp2 = getTicks();
+				if (temp2 > temp1) {
+					temp2 = temp2 - temp1;
+				}
+				else {
+					temp2 = (0xFFFFFFFF - temp1 + 1) + temp2;
+				}
+				temperature = ((2*1000*temp2) / (340*1) - 2731);
+				temp2 = 0;
+				temp1 = 0;
+				tempState = 0;
+			}
+		}
+		LPC_GPIOINT->IO0IntClr = (1 << 2);
 	}
 }
 
@@ -674,8 +735,8 @@ int main (void) {
     rgb_init();
     acc_init();
     light_enable();
-    temp_init(getTicks);
     led7seg_init();
+    init_temp_interrupt();
 
     // Initialize Accelerometer to 0
     setAccelerometerAtZeroG();
@@ -701,18 +762,16 @@ int main (void) {
     	        if(oneSecondHasReached){
     	        	determineWarningToIssue();
     	        	enableInterruptsDependingOnWarning();
-
     	        	if(isFiveOrTenOrFifteenSeconds()){
     	        		light = light_read();
-						//readAllSensors();
+    	        		readAccelerometer();
 						displayValuesOnOLED();
     	        	}
 
     	        	if(isFifteenSeconds())
     	        		displayResultsOnUART();
 
-					// Reset the one second
-    	        	oneSecondHasReached = 0;
+    	        	oneSecondHasReached = 0; // Reset the one second flag
     	        }
     		break;
     	}
