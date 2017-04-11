@@ -13,7 +13,7 @@
 
 /******************************************************************************
  * Includes
- *****************************************************************************/
+ *******************************************************8**********************/
 
 #include "lpc17xx_i2c.h"
 #include "acc.h"
@@ -184,7 +184,7 @@ void acc_read (int8_t *x, int8_t *y, int8_t *z)
     while ((getStatus() & ACC_STATUS_DRDY) == 0);
 
     /*
-     * Have experienced problems reading all registers
+     * Have experienced problems reading all registers88
      * at once. Change to reading them one-by-one.
      */
     buf[0] = ACC_ADDR_XOUT8;

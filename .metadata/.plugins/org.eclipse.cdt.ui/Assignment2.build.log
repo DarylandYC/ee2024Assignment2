@@ -1,15 +1,20 @@
-21:33:49 **** Incremental Build of configuration Debug for project Assignment2 ****
+15:56:42 **** Incremental Build of configuration Debug for project Assignment2 ****
 make all 
 Building file: ../src/main.c
 Invoking: MCU C Compiler
 arm-none-eabi-gcc -DDEBUG -D__USE_CMSIS=CMSISv1p30_LPC17xx -D__CODE_RED -D__NEWLIB__ -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_CMSISv1p30_LPC17xx\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_EaBaseBoard\inc" -I"C:\Users\yongchenglow\Documents\LPCXpresso_6.1.4_194\workspace\ee2024Assignment2\Lib_MCU\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -mcpu=cortex-m3 -mthumb -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'runWarning':
+../src/main.c:127:4: warning: enumeration value 'NONE' not handled in switch [-Wswitch]
 ../src/main.c: In function 'determineWarningToIssue':
-../src/main.c:489:2: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
-../src/main.c:489:6: warning: unused variable 'isThereMovement' [-Wunused-variable]
+../src/main.c:501:4: warning: implicit declaration of function 'checkForMovement' [-Wimplicit-function-declaration]
 ../src/main.c: In function 'displayResultsOnUART':
-../src/main.c:581:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+../src/main.c:609:3: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c:612:3: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
+../src/main.c:614:2: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
 c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/stdio.h:226:5: note: expected 'char *' but argument is of type 'unsigned char *'
-../src/main.c:582:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+../src/main.c:615:2: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
 c:\nxp\lpcxpresso_6.1.4_194\lpcxpresso\tools\bin\../lib/gcc/arm-none-eabi/4.6.2/../../../../arm-none-eabi/include/newlib_inc/string.h:34:9: note: expected 'const char *' but argument is of type 'unsigned char *'
 Finished building: ../src/main.c
  
@@ -22,8 +27,8 @@ make --no-print-directory post-build
 Performing post-build steps
 arm-none-eabi-size Assignment2.axf; # arm-none-eabi-objdump -h -S Assignment2.axf >Assignment2.lss
    text	   data	    bss	    dec	    hex	filename
-  38372	   2268	   1132	  41772	   a32c	Assignment2.axf
+  38900	   2332	   1136	  42368	   a580	Assignment2.axf
  
 
-21:33:51 Build Finished (took 1s.879ms)
+15:56:44 Build Finished (took 1s.838ms)
 
