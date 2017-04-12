@@ -12203,3 +12203,15 @@ make: Nothing to be done for `all'.
 01:44:16 **** Incremental Build of configuration Debug for project Assignment2 ****
 make all 
 make: Nothing to be done for `all'.
+10:03:12 **** Incremental Build of configuration Debug for project Lib_CMSISv1p30_LPC17xx ****
+make all 
+make: Nothing to be done for `all'.
+10:03:19 **** Incremental Build of configuration Debug for project Lib_MCU ****
+make all 
+make: Nothing to be done for `all'.
+10:03:24 **** Incremental Build of configuration Debug for project Lib_EaBaseBoard ****
+make all 
+make: Nothing to be done for `all'.
+10:03:30 **** Incremental Build of configuration Debug for project Assignment2 ****
+make all 
+make: Nothing to be done for `all'.

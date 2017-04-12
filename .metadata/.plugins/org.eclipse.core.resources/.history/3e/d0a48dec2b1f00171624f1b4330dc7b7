@@ -150,7 +150,6 @@ void runWarning(){
 				case NONE:
 				default: // Fall Through
 				break;
-
 			}
 		} else {
 			rgb_setLeds(0);
@@ -442,8 +441,6 @@ void storePreviousAccelerometerValues(){
 
 /**
  * Set the current position of the accelerometer to Zero-G
- * Only done during start up to determine the orientation of the board
- * From there it will read the offset
  */
 void setAccelerometerAtZeroG(){
     acc_read(&x, &y, &z);
@@ -468,34 +465,37 @@ void disableAllInterrupts(){
  * Note: Interrupts are also disabled
  */
 void turnOffAllOperations(){
-	// Disable Interrupts
-	disableAllInterrupts();
+	if(isFirstTimeEnterStable){
+		// Disable Interrupts
+		disableAllInterrupts();
 
-	// Reset the flags
-	lightLowWarning = 0;
-	isThereMovement = 0;
-	onOrOff = 1;
+		// Reset the flags
+	    lightLowWarning = 0;
+	    isThereMovement = 0;
+	    onOrOff = 1;
 
-	// Turns the OLED Screen off
-	oled_clearScreen(OLED_COLOR_BLACK);
+		// Turns the OLED Screen off
+		oled_clearScreen(OLED_COLOR_BLACK);
 
-	// Turns the OLED Screen off
-	led7seg_setChar(' ', FALSE);
+		// Turns the OLED Screen off
+		led7seg_setChar(' ', FALSE);
 
-	// Reset the count of the 7 Seg
-	segCount = 0;
+		// Reset the count of the 7 Seg
+		segCount = 0;
 
-	// Ensure that RGB is off
-	rgb_setLeds(0);
+		// Ensure that RGB is off
+		rgb_setLeds(0);
 
-	// Set Warning to none
-	warning = NONE;
+		// Set Warning to none
+		warning = NONE;
 
-	// Indicate that the screen is cleared
-	isFirstTimeEnterStable = 0;
+		// Indicate that the screen is cleared
+	    isFirstTimeEnterStable = 0;
 
-	// Change the flag to display monitor mode at UART
-	isFirstTimeEnterMonitor = 1;
+		// Change the flag to display monitor mode at UART
+		isFirstTimeEnterMonitor = 1;
+
+	}
 }
 
 /**
@@ -526,7 +526,7 @@ void enableAllOperations(){
 
 /**
  * Check the accelerometer to see if there is movement
- * A movement is considered to be of a value more than 10 in one direction
+ * A movement is considered to be of a value more than 15 in one direction
  * This is due the small vibrations detected by the accelerometer when stationary
  */
 int checkForMovement(){
@@ -752,8 +752,7 @@ int main (void) {
     	// Configure the operations to run depending on the mode
     	switch(mode){
     		case MODE_STABLE:
-    			if(isFirstTimeEnterStable)
-    				turnOffAllOperations();
+    			turnOffAllOperations();
     		break;
 
     		case MODE_MONITOR:

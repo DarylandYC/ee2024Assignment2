@@ -1,6 +1,6 @@
-01:44:08 **** Incremental Build of configuration Debug for project Lib_MCU ****
+10:03:19 **** Incremental Build of configuration Debug for project Lib_MCU ****
 make all 
 make: Nothing to be done for `all'.
 
-01:44:08 Build Finished (took 276ms)
+10:03:20 Build Finished (took 1s.83ms)
 
